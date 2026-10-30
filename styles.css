@@ -69,3 +69,67 @@ body[dir="rtl"] .hero-subtitle {line-height:1.6}
 .brand-emblem img{inline-size:49px;block-size:49px;object-fit:contain;display:block}
 .mark:focus-visible .brand-emblem{outline:2px solid #f7c48c;outline-offset:3px}
 @media (max-width:750px){.brand-emblem{inline-size:42px;block-size:42px}.brand-emblem img{inline-size:39px;block-size:39px}.mark{gap:8px}}
+
+
+/* V7 — requested refinement:
+   1) English words inside Persian paragraphs must read one step smaller.
+   2) The Persian hero should feel denser and less empty than before. */
+body[dir="rtl"] .inline-latin{
+  font-family:var(--latin)!important;
+  font-size:.88em;
+  line-height:1;
+  vertical-align:baseline;
+}
+body[dir="rtl"] .hero-grid{
+  grid-template-columns:minmax(320px,.9fr) minmax(360px,1.1fr);
+  gap:clamp(24px,4.2vw,64px);
+  min-height:580px;
+}
+body[dir="rtl"] .hero-copy{
+  max-width:560px;
+}
+body[dir="rtl"] #hero-title{
+  max-width:7.6ch;
+  font-size:clamp(56px,5.5vw,92px);
+  line-height:1.08;
+  text-wrap:balance;
+  margin-bottom:8px;
+}
+body[dir="rtl"] .hero-subtitle{
+  max-width:420px;
+  font-size:clamp(20px,1.75vw,26px);
+  line-height:1.72;
+  margin-top:18px;
+}
+body[dir="rtl"] .hero-actions{margin-top:28px}
+body[dir="rtl"] .hero-visual{
+  max-width:420px;
+  justify-self:start;
+}
+body[dir="rtl"] .poster-button img{max-height:510px}
+@media(max-width:1050px){
+  body[dir="rtl"] .hero-grid{
+    grid-template-columns:minmax(0,1fr) minmax(260px,.86fr);
+    gap:28px;
+    min-height:530px;
+  }
+  body[dir="rtl"] #hero-title{max-width:8.2ch}
+}
+@media(max-width:750px){
+  body[dir="rtl"] .hero-grid{grid-template-columns:1fr;gap:26px;min-height:auto}
+  body[dir="rtl"] #hero-title{
+    max-width:none;
+    font-size:clamp(43px,11vw,64px);
+    line-height:1.15;
+  }
+  body[dir="rtl"] .hero-subtitle{
+    max-width:none;
+    font-size:19px;
+    line-height:1.65;
+  }
+  body[dir="rtl"] .hero-visual{
+    max-width:390px;
+    justify-self:center;
+  }
+  body[dir="rtl"] .inline-latin{font-size:.9em}
+}
