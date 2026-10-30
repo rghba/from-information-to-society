@@ -71,65 +71,76 @@ body[dir="rtl"] .hero-subtitle {line-height:1.6}
 @media (max-width:750px){.brand-emblem{inline-size:42px;block-size:42px}.brand-emblem img{inline-size:39px;block-size:39px}.mark{gap:8px}}
 
 
-/* V7 — requested refinement:
-   1) English words inside Persian paragraphs must read one step smaller.
-   2) The Persian hero should feel denser and less empty than before. */
-body[dir="rtl"] .inline-latin{
-  font-family:var(--latin)!important;
-  font-size:.88em;
-  line-height:1;
-  vertical-align:baseline;
-}
+/* V8 — Restore the editorial composition of the Persian introduction.
+   The previous 7.6ch width generated four awkward lines.  Two
+   visually balanced lines are intended, like the English hero. */
 body[dir="rtl"] .hero-grid{
-  grid-template-columns:minmax(320px,.9fr) minmax(360px,1.1fr);
-  gap:clamp(24px,4.2vw,64px);
-  min-height:580px;
+  grid-template-columns:minmax(0,1.12fr) minmax(290px,.88fr);
+  gap:clamp(36px,7.2vw,110px);
+  min-height:620px;
 }
 body[dir="rtl"] .hero-copy{
-  max-width:560px;
+  max-width:650px;
 }
 body[dir="rtl"] #hero-title{
-  max-width:7.6ch;
-  font-size:clamp(56px,5.5vw,92px);
-  line-height:1.08;
+  width:100%;
+  max-width:390px;
+  font-size:clamp(57px,4.9vw,78px);
+  font-weight:900;
+  line-height:1.25;
+  letter-spacing:0;
+  white-space:normal;
+  overflow-wrap:normal;
+  word-break:normal;
   text-wrap:balance;
-  margin-bottom:8px;
+  margin:0;
 }
 body[dir="rtl"] .hero-subtitle{
-  max-width:420px;
-  font-size:clamp(20px,1.75vw,26px);
-  line-height:1.72;
-  margin-top:18px;
+  max-width:560px;
+  font-size:clamp(18px,1.58vw,23px);
+  line-height:1.65;
+  margin-top:20px;
 }
-body[dir="rtl"] .hero-actions{margin-top:28px}
-body[dir="rtl"] .hero-visual{
-  max-width:420px;
-  justify-self:start;
+body[dir="rtl"] .hero-actions{margin-top:32px}
+body[dir="rtl"] .hero-visual{max-width:430px;justify-self:center}
+body[dir="rtl"] .poster-button img{max-height:476px}
+/* Embedded English terms are one typographic step smaller than Persian text. */
+body[dir="rtl"] .article-paragraphs .inline-latin{
+  font-family:var(--latin)!important;
+  font-size:.88em;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:0;
+  unicode-bidi:isolate;
 }
-body[dir="rtl"] .poster-button img{max-height:510px}
-@media(max-width:1050px){
+@media (max-width:1050px){
   body[dir="rtl"] .hero-grid{
-    grid-template-columns:minmax(0,1fr) minmax(260px,.86fr);
-    gap:28px;
-    min-height:530px;
+    grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);
+    gap:38px;
+    min-height:520px;
   }
-  body[dir="rtl"] #hero-title{max-width:8.2ch}
-}
-@media(max-width:750px){
-  body[dir="rtl"] .hero-grid{grid-template-columns:1fr;gap:26px;min-height:auto}
   body[dir="rtl"] #hero-title{
-    max-width:none;
-    font-size:clamp(43px,11vw,64px);
-    line-height:1.15;
+    max-width:355px;
+    font-size:clamp(51px,5.5vw,68px);
+  }
+}
+@media (max-width:750px){
+  body[dir="rtl"] .hero-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+    min-height:auto;
+  }
+  body[dir="rtl"] .hero-copy #hero-title{
+    max-width:min(100%,300px);
+    font-size:clamp(40px,10.7vw,62px);
+    line-height:1.2;
   }
   body[dir="rtl"] .hero-subtitle{
-    max-width:none;
-    font-size:19px;
-    line-height:1.65;
+    font-size:17px;
+    line-height:1.72;
+    margin-top:16px;
   }
-  body[dir="rtl"] .hero-visual{
-    max-width:390px;
-    justify-self:center;
-  }
-  body[dir="rtl"] .inline-latin{font-size:.9em}
+  body[dir="rtl"] .hero-actions{margin-top:24px}
+  body[dir="rtl"] .hero-visual{max-width:380px}
+  body[dir="rtl"] .article-paragraphs .inline-latin{font-size:.9em}
 }
