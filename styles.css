@@ -144,3 +144,56 @@ body[dir="rtl"] .article-paragraphs .inline-latin{
   body[dir="rtl"] .hero-visual{max-width:380px}
   body[dir="rtl"] .article-paragraphs .inline-latin{font-size:.9em}
 }
+
+
+/* V9 — INTRODUCTION HERO ONLY / Persian.
+   Scope: the introduction has an empty #section-number; numbered episodes do not.
+   Keep English, reader, navigation, poster viewer, and future episodes unchanged.
+   Restore the hero's editorial weight via typography and two-column proximity,
+   without inserting symbols or rewriting the author's text. */
+@media (min-width:1051px) {
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-grid {
+    grid-template-columns:minmax(0,1.06fr) minmax(320px,.94fr);
+    column-gap:clamp(40px,4.25vw,70px);
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) #hero-title {
+    max-width:560px;
+    font-size:clamp(79px,6.1vw,100px);
+    line-height:1.19;
+    text-wrap:balance;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-visual {
+    justify-self:start; /* RTL start brings the poster toward the copy. */
+  }
+}
+@media (min-width:751px) and (max-width:1050px) {
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-grid {
+    grid-template-columns:minmax(0,1fr) minmax(260px,.88fr);
+    gap:clamp(24px,3vw,32px);
+    min-height:520px;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) #hero-title {
+    max-width:430px;
+    font-size:clamp(61px,7.5vw,79px);
+    line-height:1.2;
+    text-wrap:balance;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-visual {justify-self:start}
+}
+@media (max-width:750px) {
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-grid {
+    grid-template-columns:1fr;
+    gap:28px;
+    min-height:auto;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-copy #hero-title {
+    max-width:100%;
+    font-size:clamp(43px,10.7vw,62px);
+    line-height:1.2;
+    text-wrap:balance;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-visual {
+    justify-self:center;
+    max-width:380px;
+  }
+}
