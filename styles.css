@@ -197,3 +197,22 @@ body[dir="rtl"] .article-paragraphs .inline-latin{
     max-width:380px;
   }
 }
+
+/* V10 — Persian introduction hero: deliberate two-line progression.
+   The first line keeps its right edge; the final line leads inward toward
+   the poster. Adjust only this introduction on sufficiently wide screens.
+   No new decorative elements, no text edits, no changes to English/episodes. */
+@media (min-width:1400px) {
+  body[dir="rtl"] #reader-page:has(#section-number:empty) #hero-title {
+    text-align: right;
+    text-align-last: left;
+    text-wrap: balance;
+    line-height: 1.17;
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-copy {
+    transform: translateX(-42px);
+  }
+  body[dir="rtl"] #reader-page:has(#section-number:empty) .hero-visual {
+    transform: translateX(34px);
+  }
+}
