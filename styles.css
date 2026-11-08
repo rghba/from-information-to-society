@@ -197,3 +197,61 @@ body[dir="rtl"] .article-paragraphs .inline-latin{
     max-width:380px;
   }
 }
+
+
+/* V8.0 — Episode Two publication. Additive styling; existing V7 intro remains untouched. */
+body[data-page="episode"] .hero-copy #hero-title {text-wrap:balance}
+body[dir="rtl"][data-page="episode"] .hero-copy #hero-title{max-width:560px;font-size:clamp(48px,4.7vw,76px);line-height:1.26}
+body[dir="ltr"][data-page="episode"] .hero-copy #hero-title{font-size:clamp(46px,4.8vw,78px);line-height:1.08}
+body[data-page="episode"] .eyebrow{letter-spacing:normal}
+body[data-page="episode"] .hero-subtitle{max-width:570px}
+body[data-page="episode"] .article-paragraphs{font-variant-numeric:proportional-nums}
+body[data-page="episode"] .article-paragraphs .episode-section-heading{
+  font-weight:750;line-height:1.65;color:var(--ink);margin:2.3em 0 .8em;
+  padding-block-start:0.95em;border-top:1px solid var(--rule);font-size:clamp(25px,2.5vw,33px);
+  text-wrap:pretty;overflow-wrap:break-word;
+}
+body[dir="ltr"][data-page="episode"] .article-paragraphs .episode-section-heading{
+  font-family:var(--latinDisplay);font-weight:400;line-height:1.3;font-size:clamp(27px,2.55vw,37px);
+}
+body[dir="rtl"][data-page="episode"] .article-paragraphs .episode-section-heading{font-family:var(--arabic)}
+body[data-page="episode"] .article-paragraphs p[data-pull="true"]{color:#975e3b}
+body[data-page="episode"] .article-paragraphs strong{font-weight:750}
+body[data-page="episode"] .article-paragraphs em{font-style:italic}
+body[dir="rtl"][data-page="episode"] .article-paragraphs em{font-style:normal}
+body[data-page="episode"] .atlas-figure{margin:2.3em 0 2.6em;padding:0;max-width:100%;}
+body[data-page="episode"] .atlas-open{
+  position:relative;display:block;width:100%;margin:0;border:1px solid #dccfc0;
+  padding:clamp(5px,.9vw,11px);border-radius:3px;background:#f8f6f0;
+  box-shadow:0 10px 28px #233f4808;cursor:zoom-in;transition:border-color .2s ease;
+}
+body[data-page="episode"] .atlas-open:hover{border-color:#b77c55}
+body[data-page="episode"] .atlas-open img{width:100%;height:auto;display:block;object-fit:contain}
+body[data-page="episode"] .atlas-enlarge-icon{
+  position:absolute;inset-block-end:14px;inset-inline-end:14px;display:grid;place-items:center;
+  width:32px;height:32px;border-radius:50%;background:#17333bd9;color:#fff;
+  font-family:var(--latin);font-size:18px;line-height:1;
+}
+body[data-page="episode"] .atlas-figure figcaption{
+  font-size:clamp(14px,1.3vw,17px);color:#687b7b;text-align:center;line-height:1.6;
+  margin-block:12px 0;padding-inline:12px;
+}
+body[dir="ltr"][data-page="episode"] .atlas-figure figcaption{font-family:var(--latin)}
+.library-card-body{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:0;flex:1}
+.library-card-title{display:block;overflow-wrap:anywhere}
+.library-card-thumb{width:76px;height:95px;object-fit:cover;object-position:center top;border:1px solid #b9a994;border-radius:2px;flex:none;box-shadow:0 3px 14px #101c1f24}
+.reader-next .journey-next{display:flex;justify-content:center;width:fit-content;max-width:100%;margin:0 auto 16px;background:var(--ink);color:#fff8ef;border-color:var(--ink);text-align:center}
+.reader-next .journey-next:hover{background:#244954}
+@media(max-width:750px){
+ body[data-page="episode"] .hero-copy #hero-title,
+ body[dir="rtl"][data-page="episode"] .hero-copy #hero-title{font-size:clamp(42px,10.2vw,59px);max-width:100%}
+ body[data-page="episode"] .article-paragraphs .episode-section-heading{margin:1.75em 0 .6em;font-size:27px}
+ body[data-page="episode"] .atlas-figure{margin:1.65em -1px 1.95em}
+ body[data-page="episode"] .atlas-figure figcaption{font-size:14px}
+ .library-card-body{gap:10px}
+ .library-card-thumb{width:68px;height:85px}
+}
+@media (prefers-reduced-motion:reduce){body[data-page="episode"] .atlas-open{transition:none}}
+
+/* Keep card navigation unobstructed: image thumbnails take the arrow's corner. */
+.library-card:has(.library-card-thumb) .library-card-arrow{display:none}

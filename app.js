@@ -6,7 +6,7 @@
   const $main = $('main-content');
   const ui = {
     fa: {
-      brand:'از اطلاعات تا جامعه',intro:'معرفی', library:'فهرست نوشته‌ها', introduction:'معرفی مجموعه', episode:'قسمت',
+      brand:'از اطلاعات تا جامعه',intro:'معرفی', library:'فهرست نوشته‌ها', introduction:'معرفی مجموعه', episode:'اپیزود',
       poster:'پوستر اصلی',posterCaption:'برای بزرگ‌نمایی تصویر، آن را انتخاب کنید',read:'خواندن متن',share:'کپی پیوند صفحه',
       article:'متن کامل',end:'پایان معرفی',endEpisode:'پایان نوشته',readAll:'فهرست نوشته‌ها',overview:'نقشه مسیر',
       librarySubtitle:'معرفی در جای خود می‌ماند و هر نوشتهٔ تازه به این فهرست اضافه می‌شود.',
@@ -63,7 +63,7 @@
     $('missing-title').textContent=strings.missing;
     document.querySelectorAll('[data-lang]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.lang===lang)));
     document.querySelectorAll('[data-route]').forEach(a=>{
-      const selected=(route?.type==='library'?'library':'intro')===a.dataset.route;
+      const selected=(route?.type==='library'?'library':route?.type==='intro'?'intro':'')===a.dataset.route;
       a.classList.toggle('is-current',selected);
       if(selected)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
     });
@@ -87,22 +87,25 @@
     $('poster-zoom').textContent=isFa?'بزرگ‌نمایی جزئیات':'Zoom in for detail';
   }
   function showPage(which){Object.entries(els).forEach(([k,v])=>{v.hidden=k!==which;});}
-  function populateParagraph(p,text,lang){
-    // Preserve every original character. The Latin segments are only styled and direction-isolated.
-    p.replaceChildren();
-    if(lang!=='fa'){p.textContent=text;return;}
+  function populateSegment(node,text,lang){
+    // Text nodes keep Word characters and punctuation verbatim, with directional
+    // isolation only for Latin words in the Persian flow.
+    if(lang!=='fa'){node.appendChild(document.createTextNode(text));return;}
     const pieces=text.split(/([A-Za-z]+(?:[’'-][A-Za-z]+)*)/g);
-    for(let j=0;j<pieces.length;j++){
-      const s=pieces[j];if(!s)continue;
-      if(/^[A-Za-z]/.test(s)){const span=document.createElement('span');span.className='inline-latin';span.setAttribute('lang','en');span.setAttribute('dir','ltr');span.textContent=s;p.appendChild(span);}
-      else p.appendChild(document.createTextNode(s));
+    for(const piece of pieces){
+      if(!piece)continue;
+      if(/^[A-Za-z]/.test(piece)){
+        const span=document.createElement('span');span.className='inline-latin';span.lang='en';span.dir='ltr';span.textContent=piece;node.appendChild(span);
+      }else node.appendChild(document.createTextNode(piece));
     }
   }
+  function populateParagraph(node,text,lang){node.replaceChildren();populateSegment(node,text,lang);}
   function isPull(s){return ['«چقدر می‌دونیم؟»','«با چیزهایی که می‌دونیم، چطوری می‌تونیم فکر ‌کنیم؟»','"How much do we know?"','"How can we think with what we know?"'].includes(s.trim());}
   function renderReader(record,lang){
     const strings=ui[lang],item=record.languageContent?.[lang];
     if(!item){showMissing(strings.notAvailable);return;}
     showPage('reader');
+    document.body.dataset.page=record.kind==='introduction'?'intro':'episode';
     $('section-type').textContent=record.kind==='introduction'?strings.introduction:strings.episode;
     $('section-number').textContent=record.kind==='introduction'?'':(lang==='fa'?new Intl.NumberFormat('fa-IR').format(Number(record.id)):String(Number(record.id)).padStart(2,'0'))+' /';
     $('hero-eyebrow').textContent=item.eyebrow || '';
@@ -110,6 +113,7 @@
     $('hero-subtitle').textContent=item.subtitle||'';
     $('hero-subtitle').hidden=!item.subtitle;
     $('hero-poster').src=item.posterPreview||item.poster||'';$('hero-poster').alt=item.posterAlt||'';
+    $('poster-label').textContent=record.kind==='introduction'?strings.poster:(lang==='fa'?'پوستر اپیزود دوم':'Episode artwork');
     $('hero-visual');
     document.querySelector('.hero-visual').hidden=!item.poster;
     $('reader-index').textContent=(catalog.title?.[lang]||strings.brand)+' / '+(record.kind==='introduction'?strings.intro:item.title);
@@ -117,8 +121,52 @@
     $('article-end-label').textContent=record.kind==='introduction'?strings.end:strings.endEpisode;
     $('all-articles-link').href=routeLink('library',null,lang);
     const area=$('article-paragraphs');area.replaceChildren();
-    for(const para of item.paragraphs||[]){
-      const p=document.createElement('p');p.lang=lang;p.dir=lang==='fa'?'rtl':'ltr';p.dataset.pull=String(isPull(para));populateParagraph(p,para,lang);area.appendChild(p);
+    if(Array.isArray(item.blocks)){
+      let stage=0;
+      for(const block of item.blocks){
+        if(block.type==='figure'){
+          stage++;
+          const fig=document.createElement('figure');fig.className='atlas-figure';
+          fig.id=`atlas-stage-${stage}`;
+          const open=document.createElement('button');open.type='button';open.className='atlas-open';
+          open.dataset.fullImage=block.src;open.dataset.imageAlt=block.alt;
+          open.dataset.viewerLabel=(lang==='fa'?'اطلس شناخت':'Cognitive Atlas')+' / '+block.caption;
+          open.setAttribute('aria-label',(lang==='fa'?'بزرگ‌نمایی تصویر: ':'Enlarge figure: ')+block.caption);
+          const image=document.createElement('img');image.src=block.preview||block.src;
+          image.alt=block.alt;image.loading='lazy';image.decoding='async';
+          if(block.width)image.width=block.width;if(block.height)image.height=block.height;
+          open.appendChild(image);
+          const icon=document.createElement('span');icon.className='atlas-enlarge-icon';
+          icon.textContent='↗';icon.setAttribute('aria-hidden','true');open.appendChild(icon);
+          const caption=document.createElement('figcaption');caption.textContent=(lang==='fa'?'اطلس شناخت · مرحله ':'Cognitive Atlas · Step ')+(lang==='fa'?new Intl.NumberFormat('fa-IR').format(stage):stage)+' / '+(lang==='fa'?'۵':'5')+' — '+block.caption;
+          fig.append(open,caption);area.appendChild(fig);
+        }else if(block.type==='heading'){
+          const h=document.createElement('h2');h.className='episode-section-heading';h.lang=lang;
+          populateParagraph(h,block.text,lang);area.appendChild(h);
+        }else{
+          const p=document.createElement('p');p.lang=lang;p.dir=lang==='fa'?'rtl':'ltr';
+          p.dataset.pull=String(Boolean(block.emphasis));
+          if(Array.isArray(block.runs)&&block.runs.length){
+            for(const seg of block.runs){
+              let target=p;
+              if(seg.bold){target=document.createElement('strong');p.appendChild(target);}
+              if(seg.italic){const em=document.createElement('em');target.appendChild(em);target=em;}
+              populateSegment(target,seg.text,lang);
+            }
+          }else populateParagraph(p,block.text,lang);
+          area.appendChild(p);
+        }
+      }
+    }else{
+      for(const para of item.paragraphs||[]){
+        const p=document.createElement('p');p.lang=lang;p.dir=lang==='fa'?'rtl':'ltr';p.dataset.pull=String(isPull(para));populateParagraph(p,para,lang);area.appendChild(p);
+      }
+    }
+    const feature=$('next-episode-link');
+    if(feature){
+      const next=record.kind==='introduction'?([...catalog.episodes].find(e=>e.id==='02')):null;
+      feature.hidden=!next;
+      if(next){feature.href=routeLink('episode',next.id,lang);feature.textContent=(lang==='fa'?'بریم سراغ اپیزود دوم: ':'Continue to Episode Two: ')+(next.title?.[lang]||'');}
     }
     document.title=item.title+' — '+strings.brand;
     document.querySelector('meta[name=description]').content=item.subtitle||item.title;
@@ -130,12 +178,16 @@
     const head=document.createElement('span');head.className='library-card-head';
     const label=document.createElement('span');label.textContent=item.kind==='intro'?strings.intro:`${strings.episode} ${lang==='fa'?new Intl.NumberFormat('fa-IR').format(item.order):item.order}`;
     const ring=document.createElement('span');ring.textContent='◌';head.append(label,ring);
+    const thumbSource=item.kind==='intro'?data.intro?.languageContent?.[lang]?.posterPreview:item.posterPreview?.[lang];
+    const thumb=document.createElement('img');thumb.className='library-card-thumb';
+    if(thumbSource){thumb.src=thumbSource;thumb.loading='lazy';thumb.alt='';thumb.decoding='async';thumb.width=76;thumb.height=95;}
     const title=document.createElement('span');title.className='library-card-title';title.textContent=item.title?.[lang]||'';
     const arrow=document.createElement('span');arrow.className='library-card-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
-    a.append(head,title,arrow);return a;
+    if(thumbSource){const wrap=document.createElement('span');wrap.className='library-card-body';wrap.append(title,thumb);a.append(head,wrap,arrow);}
+    else a.append(head,title,arrow);return a;
   }
   function renderLibrary(lang){
-    showPage('library');const strings=ui[lang];
+    showPage('library');document.body.dataset.page='library';const strings=ui[lang];
     const published=[...(catalog.episodes||[])].filter(e=>e&&e.id&&e.file&&e.title).sort((a,b)=>(a.order??0)-(b.order??0));
     $('library-count').textContent=strings.count(published.length);
     const all=[{kind:'intro',title:{fa:'از اطلاعات تا جامعه',en:'From Information to Society'}},...published];
@@ -147,7 +199,7 @@
     };
     filter.oninput();document.title=strings.library+' — '+strings.brand;
   }
-  function showMissing(message){showPage('missing');$('missing-title').textContent=message||ui[route.lang].missing;}
+  function showMissing(message){showPage('missing');document.body.dataset.page='missing';$('missing-title').textContent=message||ui[route.lang].missing;}
   function loadEpisode(id){
     if(data[id])return Promise.resolve(data[id]);
     const record=(catalog.episodes||[]).find(e=>e.id===id);
@@ -175,11 +227,26 @@
     const record=route.type==='intro'?data.intro:data[route.id];const item=record?.languageContent?.[route.lang];
     if(!item?.poster)return;
     $('dialog-image').src=item.poster;$('dialog-image').alt=item.posterAlt||'';
+    $('viewer-title').textContent=record.kind==='introduction'?ui[route.lang].poster:(route.lang==='fa'?'پوستر اپیزود دوم':'Episode artwork');
     const dlg=$('poster-dialog');dlg.classList.remove('is-zoomed');$('poster-zoom').setAttribute('aria-pressed','false');
     $('poster-zoom').textContent=route.lang==='fa'?'بزرگ‌نمایی جزئیات':'Zoom in for detail';
     $('viewer-stage').scrollTop=0;$('viewer-stage').scrollLeft=0;
     if(!dlg.open)dlg.showModal();
   }
+  // The atlas magnification uses the same accessible modal as the approved poster viewer.
+  $('article-paragraphs').addEventListener('click',e=>{
+    const target=e.target.closest?.('button[data-full-image]');
+    if(!target)return;
+    const dlg=$('poster-dialog');
+    $('dialog-image').src=target.dataset.fullImage;
+    $('dialog-image').alt=target.dataset.imageAlt||'';
+    $('viewer-title').textContent=target.dataset.viewerLabel||ui[route.lang].poster;
+    dlg.setAttribute('aria-label',target.dataset.viewerLabel||ui[route.lang].poster);
+    dlg.classList.remove('is-zoomed');$('poster-zoom').setAttribute('aria-pressed','false');
+    $('poster-zoom').textContent=route.lang==='fa'?'بزرگ‌نمایی جزئیات':'Zoom in for detail';
+    $('viewer-stage').scrollTop=0;$('viewer-stage').scrollLeft=0;
+    if(!dlg.open)dlg.showModal();
+  });
   $('poster-open').addEventListener('click',showPoster);
   $('rail-poster').addEventListener('click',showPoster);
   $('poster-close').addEventListener('click',()=>$('poster-dialog').close());
@@ -196,7 +263,8 @@
   }));
   $('read-action').addEventListener('click',e=>{e.preventDefault();$('article-start').scrollIntoView({behavior:'smooth',block:'start'});});
   $('copy-link').addEventListener('click',async()=>{
-    const url=location.href.includes('#/')?location.href:location.href.split('#')[0]+routeLink(route.type,route.id,route.lang);
+    const current=route.type==='episode'?data[route.id]?.languageContent?.[route.lang]:null;
+    const url=current?.sharePath?new URL(current.sharePath,document.baseURI).href:(location.href.includes('#/')?location.href:location.href.split('#')[0]+routeLink(route.type,route.id,route.lang));
     try {if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url)}else{const inp=document.createElement('textarea');inp.value=url;document.body.append(inp);inp.select();if(!document.execCommand('copy'))throw Error();inp.remove();}showToast(ui[route.lang].copied);}
     catch{showToast(ui[route.lang].copyFailed)}
   });
