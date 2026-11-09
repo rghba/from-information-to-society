@@ -1304,11 +1304,11 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "Layer 1: The execution substrate (L1 — Substrate / Implementation)",
+          "text": "Layer 1: The execution substrate (L1)",
           "emphasis": true,
           "runs": [
             {
-              "text": "Layer 1: The execution substrate (L1 — Substrate / Implementation)",
+              "text": "Layer 1: The execution substrate (L1)",
               "bold": true
             }
           ]
@@ -1495,11 +1495,11 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "Layer 2: Knowledge and representations (L2 — Knowledge & Representations)",
+          "text": "Layer 2: Knowledge and representations (L2)",
           "emphasis": true,
           "runs": [
             {
-              "text": "Layer 2: Knowledge and representations (L2 — Knowledge & Representations)",
+              "text": "Layer 2: Knowledge and representations (L2)",
               "bold": true
             }
           ]
@@ -1686,11 +1686,11 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "Layer 3: Cognitive processing and control (L3 — Cognitive Processing & Control)",
+          "text": "Layer 3: Cognitive processing and control (L3)",
           "emphasis": true,
           "runs": [
             {
-              "text": "Layer 3: Cognitive processing and control (L3 — Cognitive Processing & Control)",
+              "text": "Layer 3: Cognitive processing and control (L3)",
               "bold": true
             }
           ]
