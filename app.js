@@ -14,7 +14,8 @@
       noResults:'عنوانی مطابق جست‌وجوی شما پیدا نشد.', missing:'این نوشته هنوز منتشر نشده است.',
       copied:'پیوند این صفحه کپی شد.',copyFailed:'نشانی صفحه را از نوار آدرس مرورگر کپی کنید.',
       goPoster:'دیدن پوستر ↗',titleTag:'معرفی',endNote:'یک مسیر، پرسش‌های بسیار', reading:'خواندن', missingBack:'بازگشت به فهرست',
-      notAvailable:'نسخهٔ این زبان برای این نوشته هنوز منتشر نشده است.'
+      notAvailable:'نسخهٔ این زبان برای این نوشته هنوز منتشر نشده است.',
+      tocTitle:'فهرست نوشته‌ها',tocIntro:'معرفی مجموعه',tocToggle:'نمایش فهرست',tocClose:'بستن فهرست',tocSkip:'رفتن به محتوای اصلی'
     },
     en: {
       brand:'From Information to Society',intro:'Introduction',library:'Writing index', introduction:'Series introduction', episode:'Episode',
@@ -25,7 +26,8 @@
       noResults:'No titles match this search.',missing:'This piece has not been published yet.',
       copied:'Page link copied.',copyFailed:'Copy the address from your browser’s address bar.',
       goPoster:'View poster ↗',titleTag:'Introduction',endNote:'One journey, many questions',reading:'Read',missingBack:'Back to the index',
-      notAvailable:'This language edition has not been published yet.'
+      notAvailable:'This language edition has not been published yet.',
+      tocTitle:'Episode index',tocIntro:'Introduction',tocToggle:'Show episodes',tocClose:'Hide episodes',tocSkip:'Skip to main content'
     }
   };
   const els = {reader:$('reader-page'),library:$('library-page'),missing:$('missing-page')};
@@ -85,27 +87,70 @@
     $('poster-close').setAttribute('aria-label',isFa?'بستن تصویر':'Close image');
     $('viewer-title').textContent=strings.poster;
     $('poster-zoom').textContent=isFa?'بزرگ‌نمایی جزئیات':'Zoom in for detail';
+    $('navigation').setAttribute('aria-label',isFa?'پیمایش سایت':'Site navigation');
+    $('reader-toc').setAttribute('aria-label',strings.tocTitle);
+    $('toc-navigation').setAttribute('aria-label',strings.tocTitle);
+    $('toc-title').textContent=strings.tocTitle;
+    $('skip-to-main').textContent=strings.tocSkip;
+    $('reader-article').setAttribute('aria-label',strings.article);
+    updateTocToggleLabel(lang);
   }
   function showPage(which){Object.entries(els).forEach(([k,v])=>{v.hidden=k!==which;});}
+  // W3C bidi isolation: isolate entire L1 / I12 codes AND full English phrases,
+  // including parentheses. Isolating only Latin letters split off the digits,
+  // reversing identifiers and parenthetical English terms in Persian paragraphs.
+  const embeddedLtr = /\([^()]*[A-Za-z][^()]*\)|[A-Za-z][A-Za-z0-9]*(?:[’'./&+-][A-Za-z0-9]+)*/g;
   function populateSegment(node,text,lang){
-    // Text nodes keep Word characters and punctuation verbatim, with directional
-    // isolation only for Latin words in the Persian flow.
     if(lang!=='fa'){node.appendChild(document.createTextNode(text));return;}
-    const pieces=text.split(/([A-Za-z]+(?:[’'-][A-Za-z]+)*)/g);
-    for(const piece of pieces){
-      if(!piece)continue;
-      if(/^[A-Za-z]/.test(piece)){
-        const span=document.createElement('span');span.className='inline-latin';span.lang='en';span.dir='ltr';span.textContent=piece;node.appendChild(span);
-      }else node.appendChild(document.createTextNode(piece));
+    let from=0;
+    embeddedLtr.lastIndex=0;
+    for(const match of text.matchAll(embeddedLtr)){
+      const i=match.index;
+      if(i>from)node.appendChild(document.createTextNode(text.slice(from,i)));
+      const isolated=document.createElement('bdi');
+      isolated.className='inline-latin';
+      isolated.dir='ltr';isolated.lang='en';isolated.textContent=match[0];
+      node.appendChild(isolated);
+      from=i+match[0].length;
     }
+    if(from<text.length)node.appendChild(document.createTextNode(text.slice(from)));
   }
   function populateParagraph(node,text,lang){node.replaceChildren();populateSegment(node,text,lang);}
   function isPull(s){return ['«چقدر می‌دونیم؟»','«با چیزهایی که می‌دونیم، چطوری می‌تونیم فکر ‌کنیم؟»','"How much do we know?"','"How can we think with what we know?"'].includes(s.trim());}
+  function updateTocToggleLabel(lang){
+    const button=$('toc-toggle');
+    const open=button.getAttribute('aria-expanded')==='true';
+    button.textContent=open?ui[lang].tocClose:ui[lang].tocToggle;
+  }
+  function renderEpisodeIndex(record,lang){
+    const all=[{kind:'introduction',id:'intro',title:{fa:ui.fa.tocIntro,en:ui.en.tocIntro}},
+      ...(catalog.episodes||[]).filter(e=>e&&e.id&&e.title&&e.file)
+        .sort((a,b)=>(a.order||0)-(b.order||0))];
+    const currentId=record.kind==='introduction'?'intro':record.id;
+    const list=$('toc-list');list.replaceChildren();
+    for(const item of all){
+      const li=document.createElement('li');li.className='toc-item';
+      const link=document.createElement('a');link.className='toc-link';
+      const active=item.id===currentId;
+      link.href=item.id==='intro'?routeLink('intro',null,lang):routeLink('episode',item.id,lang);
+      if(active){link.setAttribute('aria-current','page');li.classList.add('is-current');}
+      const num=document.createElement('span');num.className='toc-number';num.lang=lang;
+      num.textContent=item.id==='intro'?(lang==='fa'?'آغاز':'00'):
+        (lang==='fa'?new Intl.NumberFormat('fa-IR').format(item.order):String(item.order).padStart(2,'0'));
+      const label=document.createElement('span');label.className='toc-item-label';
+      label.textContent=item.title[lang]||'';
+      link.append(num,label);li.append(link);list.append(li);
+    }
+    $('toc-toggle').setAttribute('aria-expanded','false');
+    $('reader-toc').classList.remove('is-open');
+    updateTocToggleLabel(lang);
+  }
   function renderReader(record,lang){
     const strings=ui[lang],item=record.languageContent?.[lang];
     if(!item){showMissing(strings.notAvailable);return;}
     showPage('reader');
     document.body.dataset.page=record.kind==='introduction'?'intro':'episode';
+    renderEpisodeIndex(record,lang);
     $('section-type').textContent=record.kind==='introduction'?strings.introduction:strings.episode;
     $('section-number').textContent=record.kind==='introduction'?'':(lang==='fa'?new Intl.NumberFormat('fa-IR').format(Number(record.id)):String(Number(record.id)).padStart(2,'0'))+' /';
     $('hero-eyebrow').textContent=item.eyebrow || '';
@@ -262,6 +307,15 @@
     goTo(route.type==='episode'?'episode':route.type==='library'?'library':'intro',button.dataset.lang,route.id);
   }));
   $('read-action').addEventListener('click',e=>{e.preventDefault();$('article-start').scrollIntoView({behavior:'smooth',block:'start'});});
+  $('toc-toggle').addEventListener('click',()=>{
+    const aside=$('reader-toc');const next=!aside.classList.contains('is-open');
+    aside.classList.toggle('is-open',next);
+    $('toc-toggle').setAttribute('aria-expanded',String(next));
+    updateTocToggleLabel(route?.lang||'fa');
+  });
+  $('skip-to-main').addEventListener('click',()=>{
+    $main.scrollIntoView({behavior:'instant',block:'start'});$main.focus({preventScroll:true});
+  });
   $('copy-link').addEventListener('click',async()=>{
     const current=route.type==='episode'?data[route.id]?.languageContent?.[route.lang]:null;
     const url=current?.sharePath?new URL(current.sharePath,document.baseURI).href:(location.href.includes('#/')?location.href:location.href.split('#')[0]+routeLink(route.type,route.id,route.lang));

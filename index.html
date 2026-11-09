@@ -24,6 +24,7 @@
 <script defer="" src="app.js"></script>
 <link href="assets/site-icon.png" rel="icon" type="image/png"/></head>
 <body>
+<button class="skip-to-main" id="skip-to-main" type="button">رفتن به محتوای اصلی</button>
 <header class="site-header" id="top">
 <div class="frame header-inner">
 <a aria-label="بازگشت به معرفی" class="mark" href="#/intro/fa" id="home-link"><span class="brand-emblem"><img alt="" decoding="async" height="56" src="assets/brand-header.webp" width="56"/></span>
@@ -74,6 +75,13 @@
 </div>
 <div class="reading-region" id="article-start">
 <div class="frame article-grid">
+<aside class="reader-toc" aria-label="فهرست قسمت‌های مجموعه" id="reader-toc">
+  <button type="button" class="toc-toggle" id="toc-toggle" aria-expanded="false" aria-controls="toc-navigation">فهرست نوشته‌ها</button>
+  <nav class="toc-navigation" id="toc-navigation" aria-labelledby="toc-title">
+    <p class="toc-title" id="toc-title">فهرست نوشته‌ها</p>
+    <ol class="toc-list" id="toc-list"></ol>
+  </nav>
+</aside>
 <article aria-label="متن کامل" class="article-column" id="reader-article">
 <div class="article-meta"><span class="article-meta-square"></span><span id="article-heading">متن کامل</span><span class="article-meta-rule"></span><button class="article-poster-link" id="rail-poster" type="button">دیدن پوستر</button></div>
 <div class="article-paragraphs" id="article-paragraphs"></div>

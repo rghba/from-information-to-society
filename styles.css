@@ -255,3 +255,89 @@ body[dir="ltr"][data-page="episode"] .atlas-figure figcaption{font-family:var(--
 
 /* Keep card navigation unobstructed: image thumbnails take the arrow's corner. */
 .library-card:has(.library-card-thumb) .library-card-arrow{display:none}
+
+
+/* V9 — coherent reading system. INTRO and EPISODE paragraphs share the existing
+   exact CSS baseline. This addition changes only the adjacent navigation, bidi
+   isolation and accessibility, never the author's established text metrics. */
+.article-grid{
+  display:grid;max-width:none;
+  grid-template-columns:minmax(172px,198px) minmax(0,760px) minmax(0,1fr);
+  gap:clamp(24px,3.3vw,56px);
+}
+.reader-toc{
+  min-width:0;position:sticky;top:28px;
+  max-height:calc(100dvh - 48px);overflow-y:auto;overscroll-behavior:contain;
+  padding-block:5px 12px;
+  scrollbar-width:thin;
+}
+.toc-title{
+  font-family:var(--arabic);font-size:clamp(17px,1.5vw,20px);
+  font-weight:750;line-height:1.6;color:var(--ink);
+  margin:0 0 16px;padding-block-end:13px;border-bottom:1px solid var(--rule);
+}
+body[dir="ltr"] .toc-title{font-family:var(--latinDisplay);font-size:23px;font-weight:400;line-height:1.35}
+.toc-list{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.toc-item{min-width:0}
+.toc-link{
+  display:flex;align-items:baseline;gap:11px;min-height:44px;
+  padding:10px 9px;border-inline-start:2px solid transparent;
+  color:#526570;font-size:16px;line-height:1.55;transition:color .16s,border-color .16s;
+}
+.toc-link:hover{color:var(--ink);background:#e7ded120}
+.toc-item.is-current .toc-link{
+  color:var(--ink);font-weight:750;border-inline-start-color:var(--copper);
+  background:#e1d1be30;
+}
+.toc-number{flex:none;font-family:var(--latin);font-size:.8em;color:var(--copper);font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+body[dir="rtl"] .toc-number{font-family:var(--arabic)}
+.toc-item-label{flex:1;min-width:0;overflow-wrap:break-word}
+body[dir="ltr"] .toc-link{font-family:var(--latin);font-size:15px}
+.toc-toggle{display:none}
+/* Semantic LTR islands inside Persian. The isolated unit contains code+digits,
+   or an entire parenthesized English phrase, rather than individual words. */
+body[dir="rtl"] .article-paragraphs bdi.inline-latin{
+  font-family:var(--latin)!important;
+  font-size:.88em;font-weight:500;line-height:inherit;
+  unicode-bidi:isolate;direction:ltr;letter-spacing:normal;
+}
+body[dir="rtl"] .article-paragraphs bdi.inline-latin[lang="en"]{font-style:normal}
+.skip-to-main{
+  position:fixed;inset-block-start:8px;inset-inline-start:12px;z-index:99;
+  transform:translateY(-200%);padding:10px 15px;min-height:44px;
+  border:2px solid var(--copper);background:var(--white);color:var(--ink);
+  box-shadow:0 6px 18px #102b3640;
+}
+.skip-to-main:focus-visible{transform:translateY(0)}
+@media(max-width:990px){
+  .article-grid{display:block}
+  .reader-toc{
+    position:static;max-height:none;overflow:visible;
+    margin-block:0 28px;padding:0;border:1px solid var(--rule);
+    background:#fffaf3;
+  }
+  .toc-toggle{
+    display:flex;align-items:center;justify-content:space-between;
+    inline-size:100%;min-height:48px;border:0;background:transparent;
+    font-size:17px;font-weight:700;color:var(--ink);
+    padding:12px 16px;text-align:start;
+  }
+  .toc-toggle::after{content:'+';color:var(--copper);font-family:var(--latin);font-size:25px;line-height:1;flex:none;margin-inline-start:12px}
+  .reader-toc.is-open .toc-toggle::after{content:'−'}
+  .toc-navigation{display:none;padding:5px 15px 15px;}
+  .reader-toc.is-open .toc-navigation{display:block}
+  .toc-title{display:none}
+  .toc-list{gap:2px}
+  .toc-link{min-height:44px;font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .toc-link{transition:none}
+}
+/* Readability guardrails for small UI labels; the brand palette itself is unchanged. */
+.toc-number{color:#89502f}
+.article-meta{color:#89502f}
+body[data-page="episode"] .atlas-figure figcaption{color:#4b6064}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .poster-button,.library-card,.primary-link,.reader-next a{transition:none}
+}
