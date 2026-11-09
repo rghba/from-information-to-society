@@ -575,3 +575,20 @@ body[dir=ltr] .home-entry-bottom time{font-style:normal}
 @media(prefers-reduced-motion:reduce){.home-entry{transition:none}}
 /* Keep privacy controls readable against the new light footer. */
 body .site-footer #ftis-privacy{color:#224650!important}
+
+/* V11.1: reader cleanup. No footer, ending ornament or lower-page promotional cards. */
+.header-tools{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.header-follow-link{color:#355359;font-size:13px;font-weight:650;text-decoration:none;border-bottom:1px solid #b49a81;padding:5px 0;white-space:nowrap}
+.header-follow-link:hover{color:#a05e44}
+.header-privacy{display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;background:transparent;border:1px solid #cab7a2;border-radius:50%;color:#47646a;padding:0}
+.header-privacy:hover{background:#e7d9c8}
+.reader-feedback-link{font-size:12px;color:#89502f;border-bottom:1px solid #b99b7b;text-decoration:none;white-space:nowrap;padding:3px 0;margin-inline-start:3px}
+.reader-feedback-link:hover{color:#17434a}
+.reader-next:empty{display:none}
+.reader-next{padding-block:36px 0}
+.reading-region{padding-bottom:54px}
+/* Theme remains the shared paper/teal/copper palette approved for covers. */
+@media(max-width:750px){.header-tools{gap:8px}.header-follow-link{font-size:12px}.header-privacy{flex-basis:28px;width:28px;height:28px}.reader-feedback-link{font-size:11px}}
+@media(max-width:360px){.header-tools{gap:5px}.header-follow-link{font-size:11px}}
+
+@media(max-width:420px){.article-meta{flex-wrap:wrap;column-gap:11px;row-gap:9px}.article-meta-rule{min-width:24px}.reader-feedback-link{margin-inline-start:0}}

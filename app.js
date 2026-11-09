@@ -31,8 +31,8 @@
     }
   };
   const homeStrings={
-    fa:{eyebrow:'نقشه‌ای که قدم‌به‌قدم کامل می‌شه',title:'از اطلاعات تا جامعه',deck:'از اطلاعات شروع می‌کنیم و به‌مرور به شناخت، تعامل و همزیستی ذهن‌های انسانی، دیگر ذهن‌های طبیعی و هوش مصنوعی می‌رسیم.',indexTitle:'اپیزودها',searchLabel:'جست‌وجو در اپیزودها',searchPlaceholder:'عنوان یا موضوع اپیزود را جست‌وجو کن...',noResults:'اپیزودی با این عبارت پیدا نشد.',new:'تازه‌ترین',read:'خواندن اپیزود',published:'انتشار',results:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود`,total:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود منتشرشده`,journey:'این مسیر ادامه داره؛ اپیزودهای بعدی به‌مرور منتشر می‌شن.'},
-    en:{eyebrow:'A map taking shape, one episode at a time',title:'From Information to Society',deck:'Beginning with information, we gradually explore cognition, interaction, and the coexistence of human minds, other natural minds, and AI.',indexTitle:'Episodes',searchLabel:'Search episodes',searchPlaceholder:'Search by episode title or topic...',noResults:'No episodes match that search.',new:'Latest',read:'Read episode',published:'Published',results:(n)=>`${n} ${n===1?'episode':'episodes'}`,total:(n)=>`${n} published ${n===1?'episode':'episodes'}`,journey:'The journey continues. New episodes will appear here as they are published.'}
+    fa:{eyebrow:'نقشه‌ای که قدم‌به‌قدم کامل می‌شه',title:'از اطلاعات تا جامعه',deck:'از اطلاعات تا گفت‌وگو و اکوسیستم',indexTitle:'اپیزودها',searchLabel:'جست‌وجو در اپیزودها',searchPlaceholder:'عنوان یا موضوع اپیزود را جست‌وجو کن...',noResults:'اپیزودی با این عبارت پیدا نشد.',new:'تازه‌ترین',read:'خواندن اپیزود',published:'انتشار',results:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود`,total:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود منتشرشده`,journey:'این مسیر ادامه داره؛ اپیزودهای بعدی به‌مرور منتشر می‌شن.'},
+    en:{eyebrow:'A map taking shape, one episode at a time',title:'From Information to Society',deck:'From Information to Dialogue and an Ecosystem of Minds',indexTitle:'Episodes',searchLabel:'Search episodes',searchPlaceholder:'Search by episode title or topic...',noResults:'No episodes match that search.',new:'Latest',read:'Read episode',published:'Published',results:(n)=>`${n} ${n===1?'episode':'episodes'}`,total:(n)=>`${n} published ${n===1?'episode':'episodes'}`,journey:'The journey continues. New episodes will appear here as they are published.'}
   };
   const els = {home:$('home-page'),reader:$('reader-page'),library:$('library-page'),missing:$('missing-page')};
   const routeLink=(type,id,lang)=>type==='episode'?`#/episode/${encodeURIComponent(id)}/${lang}`:`#/${type}/${lang}`;
@@ -58,11 +58,6 @@
     $('brand-name').textContent=strings.brand;
     $('home-link').href=routeLink('home',null,lang);
     $('home-link').setAttribute('aria-label',isFa?'صفحه نخست':'Home page');
-    $('nav-home').textContent=strings.home;
-    $('nav-home').href=routeLink('home',null,lang);
-    $('footer-brand').textContent=strings.brand;$('footer-note').textContent=strings.endNote;
-    $('footer-intro').href=routeLink('episode','01',lang);
-    $('footer-intro').firstChild.textContent=strings.intro+' ';
     $('missing-link').textContent=strings.missingBack;
     $('missing-link').href=routeLink('library',null,lang);
     $('missing-title').textContent=strings.missing;
@@ -75,7 +70,6 @@
     $('copy-link').firstChild.textContent=strings.share+' ';
     document.querySelector('[data-lang=en]').textContent=isFa?'انگلیسی':'English';
     $('read-action').firstChild.textContent=strings.read+' ';
-    $('all-articles-link').firstChild.textContent=strings.readAll+' ';
     $('poster-label').textContent=strings.poster;
     $('poster-caption').textContent=strings.posterCaption;
     $('article-heading').textContent=strings.article;
@@ -90,7 +84,6 @@
     $('poster-close').setAttribute('aria-label',isFa?'بستن تصویر':'Close image');
     $('viewer-title').textContent=strings.poster;
     $('poster-zoom').textContent=isFa?'بزرگ‌نمایی جزئیات':'Zoom in for detail';
-    $('navigation').setAttribute('aria-label',isFa?'پیمایش سایت':'Site navigation');
     $('reader-toc').setAttribute('aria-label',strings.tocTitle);
     $('toc-navigation').setAttribute('aria-label',strings.tocTitle);
     $('toc-title').textContent=strings.tocTitle;
@@ -198,8 +191,6 @@
     document.querySelector('.hero-visual').hidden=!item.poster;
     $('reader-index').textContent=(catalog.title?.[lang]||strings.brand)+' / '+item.title;
     $('article-heading').textContent=strings.article;
-    $('article-end-label').textContent=strings.endEpisode;
-    $('all-articles-link').href=routeLink('home',null,lang);
     const area=$('article-paragraphs');area.replaceChildren();
     if(Array.isArray(item.blocks)){
       let stage=0;

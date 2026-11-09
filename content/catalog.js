@@ -5,7 +5,7 @@ window.SERIES_CATALOG = {
   episodes: [
     { id: '01', order: 1, publishedAt: '2026-10-30', file: 'content/intro.js',
       title: { fa: 'از اطلاعات تا جامعه', en: 'From Information to Society' },
-      description: { fa: 'از یک سؤال شروع می‌کنیم: اطلاعات یکسان چطور می‌تونه به برداشت‌ها و تصمیم‌های متفاوت برسه؟', en: 'Our starting question: how can similar information lead to different interpretations and decisions?' },
+      description: { fa: 'برداشت‌ها و تصمیم‌هامون چطور شکل می‌گیرن؟', en: 'How do our interpretations and decisions take shape?' },
       posterPreview: { fa: 'assets/poster-fa-preview.webp', en: 'assets/poster-en-preview.webp' }
     },
     { id: '02', order: 2, publishedAt: '2026-11-08', file: 'content/episode-02.js',
