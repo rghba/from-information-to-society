@@ -18,10 +18,12 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet"/>
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/><link href="community.css" rel="stylesheet"/>
 <script defer="" src="content/catalog.js"></script>
 <script defer="" src="content/intro.js"></script>
 <script defer="" src="app.js"></script>
+<script defer src="community-config.js"></script>
+<script defer src="community.js"></script>
 <link href="assets/site-icon.png" rel="icon" type="image/png"/></head>
 <body>
 <button class="skip-to-main" id="skip-to-main" type="button">رفتن به محتوای اصلی</button>
@@ -86,6 +88,16 @@
 <div class="article-meta"><span class="article-meta-square"></span><span id="article-heading">متن کامل</span><span class="article-meta-rule"></span><button class="article-poster-link" id="rail-poster" type="button">دیدن پوستر</button></div>
 <div class="article-paragraphs" id="article-paragraphs"></div>
 <div class="article-ending"><span aria-hidden="true" class="ending-ring"></span><span id="article-end-label">پایان معرفی</span></div>
+<section class="ftis-community" id="ftis-community" aria-label="گفت‌وگو و دنبال‌کردن" hidden>
+ <div class="ftis-community-card" id="ftis-discussion" hidden>
+  <h2 id="ftis-discussion-heading"></h2><p id="ftis-discussion-description"></p>
+  <a class="ftis-community-cta" id="ftis-discussion-link" href="#"></a>
+ </div>
+ <div class="ftis-community-card" id="ftis-follow" hidden>
+  <h2 id="ftis-follow-heading"></h2><p id="ftis-follow-description"></p>
+  <a class="ftis-community-cta" id="ftis-follow-link" href="#"></a>
+ </div>
+</section>
 <div class="reader-next"><a class="journey-next" id="next-episode-link" href="#/episode/02/fa" hidden>اپیزود دوم</a><a href="#/library/fa" id="all-articles-link">فهرست نوشته‌ها <span aria-hidden="true">↗</span></a></div>
 </article>
 </div>
@@ -103,8 +115,10 @@
 </section>
 <section class="missing-page frame" hidden="" id="missing-page"><h1 id="missing-title">این نوشته هنوز منتشر نشده است.</h1><a href="#/library/fa" id="missing-link">فهرست نوشته‌ها</a></section>
 </main>
-<footer class="site-footer"><div class="frame footer-inner"><span id="footer-brand">از اطلاعات تا جامعه</span><span id="footer-note">یک مسیر، پرسش‌های بسیار</span><a href="#/intro/fa" id="footer-intro">معرفی <span aria-hidden="true">↑</span></a></div></footer>
+<footer class="site-footer"><div class="frame footer-inner"><span id="footer-brand">از اطلاعات تا جامعه</span><span id="footer-note">یک مسیر، پرسش‌های بسیار</span><button id="ftis-privacy" class="ftis-privacy" type="button" hidden>حریم خصوصی</button><a id="ftis-data-policy" class="ftis-data-policy" href="privacy.html#fa">درباره داده‌ها</a><a href="#/intro/fa" id="footer-intro">معرفی <span aria-hidden="true">↑</span></a></div></footer>
 <dialog aria-label="نمایش پوستر اصلی" id="poster-dialog"><div class="viewer-bar"><span class="viewer-title" id="viewer-title">پوستر اصلی</span><div class="viewer-actions"><button aria-pressed="false" class="viewer-zoom" id="poster-zoom" type="button">بزرگ‌نمایی جزئیات</button><button aria-label="بستن تصویر" class="dialog-close" id="poster-close" type="button">×</button></div></div><div class="viewer-stage" id="viewer-stage"><img alt="" id="dialog-image"/></div></dialog>
-<div aria-live="polite" class="message" hidden="" id="message"></div>
+<div aria-live="polite" class="message" hidden="" id="message"></div><aside id="ftis-analytics-consent" class="ftis-consent" hidden role="region" aria-label="Analytics preferences">
+ <p id="ftis-consent-text"></p><a id="ftis-consent-details" class="ftis-consent-details" href="privacy.html#fa">درباره آمار و حریم خصوصی</a><div><button type="button" id="ftis-consent-yes"></button><button type="button" id="ftis-consent-no"></button></div>
+</aside>
 </body>
 </html>

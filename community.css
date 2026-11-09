@@ -1,0 +1,32 @@
+/* Community — inherits approved FTIS theme. Contained components; not global article type overrides. */
+.ftis-community{border-block-start:1px solid var(--rule);padding-block:32px 4px;margin-block-start:36px;display:grid;gap:22px}
+.ftis-community h2{font-size:clamp(22px,2vw,28px);line-height:1.5;margin:0 0 10px;color:var(--ink);font-weight:750}
+.ftis-community p{color:#4d6269;font-size:clamp(16px,1.3vw,18px);line-height:1.75;margin:0 0 17px}
+.ftis-community .ftis-community-card{padding:22px clamp(20px,3vw,30px);background:#faf7f0;border:1px solid #d9c9b9}
+.ftis-community .ftis-community-cta{display:inline-block;max-width:100%;background:var(--ink);color:#fff7ec;border:1px solid var(--ink);padding:11px 20px;font-size:14px;font-weight:700;line-height:1.7}
+.ftis-community .ftis-community-cta:hover{background:#315764}
+.ftis-consent{position:fixed;z-index:1100;inset-inline-end:20px;bottom:18px;max-width:min(490px,calc(100vw - 40px));padding:18px 21px;background:#fffaf2;color:var(--ink);border:1px solid #c2ab8d;box-shadow:0 9px 35px #14252a29}
+.ftis-consent p{font-size:15px;line-height:1.7;margin:0 0 12px}
+.ftis-consent div{display:flex;gap:12px;flex-wrap:wrap}
+.ftis-consent button{font-size:14px;padding:9px 16px;background:var(--ink);border:1px solid var(--ink);color:#fffaf2}
+.ftis-consent button+button{background:transparent;color:var(--ink)}
+.ftis-privacy{padding:6px 2px!important;border:0!important;background:transparent!important;color:#e7d0b3!important;font-size:12px!important}
+body[dir=ltr] .ftis-community,body[dir=ltr] .ftis-consent{font-family:var(--latin)}
+.ftis-discussion-page{min-height:100vh;display:flex;flex-direction:column;background:var(--paper)}
+.discussion-header,.discussion-footer{background:var(--ink);color:#fff9ed}.discussion-header{padding:24px 0}
+.discussion-brand{font-size:18px;font-weight:750}.discussion-main{width:min(800px,calc(100% - 42px));padding-block:55px 90px;flex:1}
+.discussion-back{display:inline-block;padding:9px 0;border-bottom:1px solid var(--copper);font-size:14px;margin-bottom:43px}
+.discussion-kicker{font-size:13px;color:#a35b37;font-weight:650;margin-bottom:8px}
+.discussion-main h1{font-size:clamp(28px,4vw,45px);line-height:1.45;color:var(--ink);margin:0 0 18px}
+.discussion-intro{font-size:clamp(17px,2vw,20px);line-height:1.85;max-width:760px}
+.discussion-locale-note{font-size:14px;color:#516b72;line-height:1.8;margin-block:18px 30px}
+.discussion-embed{min-height:260px;border-top:1px solid var(--rule);padding-block:30px}
+#comment-status{font-size:16px;line-height:1.9}
+.discussion-footer{padding:26px 0;font-size:13px}
+@media(max-width:600px){.ftis-community{margin-block-start:24px}.ftis-community .ftis-community-card{padding:19px}.ftis-consent{inset-inline:12px;bottom:12px;max-width:none}.discussion-main{padding-block:35px 70px}}
+@media(prefers-reduced-motion:reduce){.ftis-community *{transition:none!important}}
+
+.ftis-data-policy{font-size:12px;color:#e7d0b3;text-decoration:underline;text-underline-offset:3px}
+.ftis-consent-details{display:inline-block;color:#22566a;text-decoration:underline;text-underline-offset:3px;font-size:13px;margin-block:-4px 13px}
+.ftis-data-policy:focus-visible,.ftis-consent-details:focus-visible{outline:2px solid var(--copper);outline-offset:4px}
+.ftis-privacy-info{background:#f7f3ed;color:#192a32;min-height:100vh}.ftis-privacy-info .policy-body{width:min(860px,calc(100% - 48px));margin-inline:auto;padding:58px 0 90px}.ftis-privacy-info h1{font-size:clamp(27px,4vw,42px);line-height:1.4}.ftis-privacy-info h2{font-size:clamp(20px,2vw,27px);margin-block:35px 12px}.ftis-privacy-info p,.ftis-privacy-info li{font-size:clamp(17px,1.8vw,21px);line-height:1.9}.ftis-privacy-info section{padding-block:30px;border-bottom:1px solid #d9c9b9}.ftis-privacy-info a{color:#22566a;text-decoration:underline;text-underline-offset:4px}.ftis-privacy-info .policy-back{display:inline-block;margin-bottom:18px;font-size:17px}
