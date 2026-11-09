@@ -6,7 +6,7 @@
   const $main = $('main-content');
   const ui = {
     fa: {
-      brand:'از اطلاعات تا جامعه',intro:'معرفی', library:'فهرست نوشته‌ها', introduction:'معرفی مجموعه', episode:'اپیزود',
+      brand:'از اطلاعات تا جامعه',home:'خانه',intro:'معرفی', library:'فهرست نوشته‌ها', introduction:'معرفی مجموعه', episode:'اپیزود',
       poster:'پوستر اصلی',posterCaption:'برای بزرگ‌نمایی تصویر، آن را انتخاب کنید',read:'خواندن متن',share:'کپی پیوند صفحه',
       article:'متن کامل',end:'پایان معرفی',endEpisode:'پایان نوشته',readAll:'فهرست نوشته‌ها',overview:'نقشه مسیر',
       librarySubtitle:'معرفی در جای خود می‌ماند و هر نوشتهٔ تازه به این فهرست اضافه می‌شود.',
@@ -18,7 +18,7 @@
       tocTitle:'فهرست نوشته‌ها',tocIntro:'معرفی مجموعه',tocToggle:'نمایش فهرست',tocClose:'بستن فهرست',tocSkip:'رفتن به محتوای اصلی'
     },
     en: {
-      brand:'From Information to Society',intro:'Introduction',library:'Writing index', introduction:'Series introduction', episode:'Episode',
+      brand:'From Information to Society',home:'Home',intro:'Introduction',library:'All writings', introduction:'Series introduction', episode:'Episode',
       poster:'Original poster',posterCaption:'Select the image to see the full-size artwork',read:'Read the essay',share:'Copy page link',
       article:'Complete text',end:'End of introduction',endEpisode:'End of essay',readAll:'Writing index',overview:'The map of the journey',
       librarySubtitle:'The introduction stays in place. Each new piece joins this index, at its own permanent address.',
@@ -30,7 +30,11 @@
       tocTitle:'Episode index',tocIntro:'Introduction',tocToggle:'Show episodes',tocClose:'Hide episodes',tocSkip:'Skip to main content'
     }
   };
-  const els = {reader:$('reader-page'),library:$('library-page'),missing:$('missing-page')};
+  const homeStrings={
+    fa:{eyebrow:'یک سفرِ باز، با سؤال‌های واقعی',title:'از اطلاعات تا جامعه',deck:'از یک سؤال شروع کردیم: وقتی اطلاعاتی شبیه هم داریم، چرا برداشت‌هامون و تصمیم‌هامون فرق می‌کنه؟ قرار نیست جواب آماده‌ای داشته باشیم؛ توی هر نوشته، بخش بیشتری از مسیر رو با هم باز می‌کنیم.',start:'انتخاب نوشته',about:'از کجا شروع کردیم؟',kicker:'آرشیو منتشرشده',indexTitle:'دوست داری از کجا شروع کنیم؟',indexSubtitle:'معرفی و قسمت‌های منتشرشده اینجاست؛ تاریخ انتشار کمک می‌کنه تازه‌ترین رو پیدا کنی.',searchLabel:'جست‌وجو در نوشته‌ها',searchPlaceholder:'عنوان یا موضوع را جست‌وجو کن...',noResults:'نوشته‌ای با این عبارت پیدا نشد.',journey:'این نقشه هنوز کامل نشده؛ هر اپیزود بخشی از سؤال رو روشن‌تر می‌کنه.',art:'از یک سؤال، به گفت‌وگو و جامعه',artAlt:'تصویری ساده از کتاب، دو نفر در گفت‌وگو و مسیری رو به جامعه',new:'تازه‌ترین',intro:'آغاز مسیر',introTitle:'معرفی مجموعه',introDescription:'از دسترسی به اطلاعات شروع می‌کنیم و می‌پرسیم چرا با اطلاعات مشابه، برداشت‌های متفاوتی داریم.',episodeDescription:'در این نوشته بخش دیگری از مسیر شناخت و تصمیم‌گیری رو با هم باز می‌کنیم.',read:'خواندن',published:'انتشار',results:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} نوشته`,total:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} نوشته در دسترس`},
+    en:{eyebrow:'An open journey, beginning with questions',title:'From Information to Society',deck:'We started with a question: when we have similar information, why can our interpretations and decisions still differ? We don’t have a ready-made answer. Each piece opens up another part of the journey together.',start:'Explore the writings',about:'Where did it begin?',kicker:'Published writing',indexTitle:'Where would you like to begin?',indexSubtitle:'Explore the introduction and published episodes. Dates help you find the newest piece.',searchLabel:'Search the writings',searchPlaceholder:'Search by title or topic...',noResults:'No writings match that search.',journey:'This map is still taking shape. Each episode explores another part of the question.',art:'From a question to dialogue and society',artAlt:'A book, two people in conversation, and a path towards a community',new:'Latest',intro:'Starting point',introTitle:'Introduction',introDescription:'We begin with access to information and ask why similar inputs can still lead to different interpretations.',episodeDescription:'This piece explores another part of how we think, decide, and interact.',read:'Read this piece',published:'Published',results:(n)=>`${n} ${n===1?'piece':'pieces'}`,total:(n)=>`${n} writings available`}
+  };
+  const els = {home:$('home-page'),reader:$('reader-page'),library:$('library-page'),missing:$('missing-page')};
   const routeLink=(type,id,lang)=>type==='episode'?`#/episode/${encodeURIComponent(id)}/${lang}`:`#/${type}/${lang}`;
   let route=null;
   let routeGeneration=0;
@@ -40,8 +44,8 @@
     let decoded;try{decoded=decodeURIComponent(location.hash.slice(1));}catch{decoded='';}
     const parts=decoded.split('/').filter(Boolean);
     const browserLanguage=(navigator.language||'').toLowerCase().startsWith('fa')?'fa':'en';
-    if(!parts.length)return {type:'intro',lang:browserLanguage};
-    if(parts[0]==='intro'||parts[0]==='library')return {type:parts[0],lang:['en','fa'].includes(parts[1])?parts[1]:browserLanguage};
+    if(!parts.length)return {type:'home',lang:'fa'};
+    if(parts[0]==='intro'||parts[0]==='library'||parts[0]==='home')return {type:parts[0],lang:['en','fa'].includes(parts[1])?parts[1]:browserLanguage};
     if(parts[0]==='episode'&&parts[1])return {type:'episode',id:parts[1],lang:['en','fa'].includes(parts[2])?parts[2]:browserLanguage};
     return {type:'missing',lang:browserLanguage};
   }
@@ -52,9 +56,10 @@
     document.documentElement.lang=lang;document.documentElement.dir=isFa?'rtl':'ltr';
     document.body.dir=isFa?'rtl':'ltr';
     $('brand-name').textContent=strings.brand;
-    $('home-link').href=routeLink('intro',null,lang);
-    $('home-link').setAttribute('aria-label',strings.intro);
-    $('nav-intro').textContent=strings.intro;$('nav-library').textContent=strings.library;
+    $('home-link').href=routeLink('home',null,lang);
+    $('home-link').setAttribute('aria-label',isFa?'صفحه نخست':'Home page');
+    $('nav-home').textContent=strings.home;$('nav-intro').textContent=strings.intro;$('nav-library').textContent=strings.library;
+    $('nav-home').href=routeLink('home',null,lang);
     $('nav-intro').href=routeLink('intro',null,lang);
     $('nav-library').href=routeLink('library',null,lang);
     $('footer-brand').textContent=strings.brand;$('footer-note').textContent=strings.endNote;
@@ -65,7 +70,7 @@
     $('missing-title').textContent=strings.missing;
     document.querySelectorAll('[data-lang]').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.lang===lang)));
     document.querySelectorAll('[data-route]').forEach(a=>{
-      const selected=(route?.type==='library'?'library':route?.type==='intro'?'intro':'')===a.dataset.route;
+      const selected=(route?.type==='library'?'library':route?.type==='intro'?'intro':route?.type==='home'?'home':'')===a.dataset.route;
       a.classList.toggle('is-current',selected);
       if(selected)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
     });
@@ -94,6 +99,19 @@
     $('skip-to-main').textContent=strings.tocSkip;
     $('reader-article').setAttribute('aria-label',strings.article);
     updateTocToggleLabel(lang);
+    const h=homeStrings[lang];
+    for(const [id,text] of Object.entries({
+      'home-eyebrow':h.eyebrow,'home-title':h.title,'home-deck':h.deck,
+      'home-index-kicker':h.kicker,'home-index-title':h.indexTitle,'home-index-subtitle':h.indexSubtitle,
+      'home-search-label':h.searchLabel,'home-journey-note':h.journey,'home-art-label':h.art,
+      'home-about':h.about}))$(id).textContent=text;
+    $('home-start').firstChild.textContent=h.start+' ';
+    $('home-about').href=routeLink('intro',null,lang);
+    $('home-start').href=routeLink('library',null,lang);
+    $('home-search').placeholder=h.searchPlaceholder;
+    $('home-artwork').alt=h.artAlt;
+    $('home-page').setAttribute('aria-label',h.title);
+    $('home-cards').setAttribute('aria-label',h.kicker);
   }
   function showPage(which){Object.entries(els).forEach(([k,v])=>{v.hidden=k!==which;});}
   // V9.3: Build a single left-to-right island for each embedded English term.
@@ -193,7 +211,7 @@
     $('reader-index').textContent=(catalog.title?.[lang]||strings.brand)+' / '+(record.kind==='introduction'?strings.intro:item.title);
     $('article-heading').textContent=record.kind==='introduction'?(lang==='fa'?'متن کامل معرفی':'Full introduction'):strings.article;
     $('article-end-label').textContent=record.kind==='introduction'?strings.end:strings.endEpisode;
-    $('all-articles-link').href=routeLink('library',null,lang);
+    $('all-articles-link').href=routeLink('home',null,lang);
     const area=$('article-paragraphs');area.replaceChildren();
     if(Array.isArray(item.blocks)){
       let stage=0;
@@ -253,6 +271,64 @@
     if(thumbSource){const wrap=document.createElement('span');wrap.className='library-card-body';wrap.append(title,thumb);a.append(head,wrap,arrow);}
     else a.append(head,title,arrow);return a;
   }
+  function formatPublicationDate(iso,lang){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(iso||''))return '';
+    const d=new Date(iso+'T12:00:00Z');
+    try{return new Intl.DateTimeFormat(lang==='fa'?'fa-IR-u-ca-persian':'en-US',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(d)}
+    catch(e){return iso}
+  }
+  function makeHomeCard(item,lang,latestId){
+    const t=homeStrings[lang];
+    const card=document.createElement('a');card.className='home-entry';
+    card.href=item.kind==='intro'?routeLink('intro',null,lang):routeLink('episode',item.id,lang);
+    if(item.kind!=='intro'&&item.id===latestId)card.classList.add('home-entry-new');
+    const visual=document.createElement('span');visual.className='home-entry-art';
+    const img=document.createElement('img');
+    img.src=item.kind==='intro'?data.intro?.languageContent?.[lang]?.posterPreview:item.posterPreview?.[lang];
+    img.alt='';img.loading='lazy';img.decoding='async';
+    visual.append(img);
+    const body=document.createElement('span');body.className='home-entry-body';
+    const over=document.createElement('span');over.className='home-entry-overline';
+    const index=document.createElement('span');index.className='home-entry-index';
+    index.textContent=item.kind==='intro'?t.intro:`${ui[lang].episode} ${lang==='fa'?new Intl.NumberFormat('fa-IR').format(item.order):String(item.order).padStart(2,'0')}`;
+    over.append(index);
+    if(item.kind!=='intro'&&item.id===latestId){const badge=document.createElement('span');badge.className='home-new-tag';badge.textContent=t.new;over.append(badge)}
+    const title=document.createElement('strong');title.className='home-entry-title';title.textContent=item.kind==='intro'?t.introTitle:item.title?.[lang];
+    const summary=document.createElement('span');summary.className='home-entry-description';
+    summary.textContent=item.kind==='intro'?t.introDescription:(item.description?.[lang]||t.episodeDescription);
+    const bottom=document.createElement('span');bottom.className='home-entry-bottom';
+    const date=document.createElement('time');date.dateTime=item.publishedAt||'';
+    date.textContent=t.published+': '+formatPublicationDate(item.publishedAt,lang);
+    const action=document.createElement('span');action.className='home-entry-read';action.textContent=t.read+'  ↗';
+    bottom.append(date,action);body.append(over,title,summary,bottom);card.append(visual,body);return card;
+  }
+  function renderHome(lang,focusSearch=false){
+    showPage('home');document.body.dataset.page='home';
+    const published=[...(catalog.episodes||[])].filter(e=>e?.id&&e?.file&&e?.title)
+      .sort((a,b)=>(a.order??0)-(b.order??0));
+    const sorted=[...published].sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''));
+    const latestId=sorted[0]?.id;
+    const entries=[{kind:'intro',title:{fa:'معرفی مجموعه',en:'Introduction'},publishedAt:catalog.introduction?.publishedAt||''},...published];
+    const field=$('home-search'),box=$('home-cards'),status=$('home-search-status');
+    const t=homeStrings[lang];
+    $('home-index-total').textContent=t.total(entries.length);
+    const update=()=>{
+      const q=field.value.trim().toLocaleLowerCase(lang);
+      const found=entries.filter(it=>{
+        const title=it.kind==='intro'?t.introTitle:it.title?.[lang]||'';
+        const desc=it.kind==='intro'?t.introDescription:it.description?.[lang]||t.episodeDescription;
+        return [title,desc,it.kind==='intro'?t.intro:ui[lang].episode].join(' ').toLocaleLowerCase(lang).includes(q);
+      });
+      box.replaceChildren();
+      for(const it of found)box.appendChild(makeHomeCard(it,lang,latestId));
+      if(!found.length){const empty=document.createElement('p');empty.className='home-empty';empty.textContent=t.noResults;box.appendChild(empty)}
+      status.textContent=t.results(found.length);
+    };
+    field.value='';field.oninput=update;update();
+    document.title=t.title+' | '+(lang==='fa'?'آغاز مسیر':'Explore the series');
+    document.querySelector('meta[name=description]').content=t.deck;
+    if(focusSearch){requestAnimationFrame(()=>{$('home-index').scrollIntoView({behavior:'instant',block:'start'});field.focus({preventScroll:true})})}
+  }
   function renderLibrary(lang){
     showPage('library');document.body.dataset.page='library';const strings=ui[lang];
     const published=[...(catalog.episodes||[])].filter(e=>e&&e.id&&e.file&&e.title).sort((a,b)=>(a.order??0)-(b.order??0));
@@ -279,8 +355,9 @@
   async function render(){
     const gen=++routeGeneration;
     route=parseRoute();if($('poster-dialog').open)$('poster-dialog').close();setLocale(route.lang);
-    if(route.type==='intro'){renderReader(data.intro,route.lang);}
-    else if(route.type==='library')renderLibrary(route.lang);
+    if(route.type==='home'){renderHome(route.lang);}
+    else if(route.type==='intro'){renderReader(data.intro,route.lang);}
+    else if(route.type==='library')renderHome(route.lang,true);
     else if(route.type==='episode'){
       const result=await loadEpisode(route.id);
       if(gen!==routeGeneration)return;
@@ -326,7 +403,7 @@
   $('poster-dialog').addEventListener('click',e=>{if(e.target===$('poster-dialog'))$('poster-dialog').close();});
   document.querySelectorAll('[data-lang]').forEach(button=>button.addEventListener('click',()=>{
     if(!route)return;
-    goTo(route.type==='episode'?'episode':route.type==='library'?'library':'intro',button.dataset.lang,route.id);
+    goTo(route.type==='episode'?'episode':route.type==='library'?'library':route.type==='home'?'home':'intro',button.dataset.lang,route.id);
   }));
   $('read-action').addEventListener('click',e=>{e.preventDefault();$('article-start').scrollIntoView({behavior:'smooth',block:'start'});});
   $('toc-toggle').addEventListener('click',()=>{

@@ -16,9 +16,9 @@
   };
   function lang(){return document.documentElement.lang==='en'?'en':'fa'}
   function route(){
-    const m=(location.hash||'').match(/^#\/(intro|episode|library)(?:\/([A-Za-z0-9-]+))?(?:\/(fa|en))?/);
-    if(!m)return {kind:'other',id:'',language:lang()};
-    return {kind:m[1],id:m[1]==='episode'?m[2]||'':'intro',language:m[3]||lang()};
+    const m=(location.hash||'').match(/^#\/(home|intro|episode|library)(?:\/([A-Za-z0-9-]+))?(?:\/(fa|en))?/);
+    if(!m)return {kind:'home',id:'',language:lang()};
+    return {kind:m[1],id:m[1]==='episode'?m[2]||'':m[1]==='intro'?'intro':'',language:m[3]||lang()};
   }
   function safeCampaign(){
     // Strictly allow these four public labels; NEVER transmit arbitrary URL query or personal data.
@@ -39,7 +39,7 @@
     lastPage=key;lastScrollKey='';readPercent=0;
     if(!enabled)return;
     // Deliberately omit the raw querystring: source tags are separately sanitized.
-    const cleanUrl=location.origin+location.pathname+(location.hash||'#/intro/fa');
+    const cleanUrl=location.origin+location.pathname+(location.hash||'#/home/fa');
     track('$pageview',{'$current_url':cleanUrl,ftis_page_type:r.kind,ftis_episode:r.id,ftis_language:r.language});
   }
   function startAnalytics(){
@@ -111,7 +111,7 @@
     const subscribe=$('ftis-follow-link');if(subscribe)subscribe.addEventListener('click',()=>track('ftis_newsletter_click',{ftis_language:lang()}));
     window.addEventListener('scroll',()=>{
       if(!enabled || document.visibilityState!=='visible')return;
-      const article=$('reader-article');if(!article || document.body.dataset.page==='library')return;
+      const article=$('reader-article');if(!article || !['episode','intro'].includes(document.body.dataset.page))return;
       const rect=article.getBoundingClientRect();const span=rect.height-window.innerHeight;
       if(span<=0)return;
       const progress=Math.max(0,Math.min(1,-rect.top/span));

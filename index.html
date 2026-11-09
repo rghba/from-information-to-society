@@ -4,14 +4,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="#102c37" name="theme-color"/>
+<meta content="#F6F1E7" name="theme-color"/>
 <meta content="از اطلاعات تا جامعه — نوشته‌های فارسی و انگلیسی در یک مجموعه پیوسته." name="description"/>
 
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="From Information to Society | از اطلاعات تا جامعه"/>
 <meta property="og:title" content="From Information to Society | از اطلاعات تا جامعه"/>
 <meta property="og:description" content="A bilingual journey from information to knowledge, thinking, interaction and society."/>
-<meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta property="og:image" content="https://rghba.github.io/from-information-to-society/assets/ftis-journey-scene.png"/>
+<meta property="og:image:alt" content="An open book, two people in dialogue, and a winding path towards a community"/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <link rel="apple-touch-icon" href="assets/site-icon.png"/>
 <title>از اطلاعات تا جامعه | From Information to Society</title>
@@ -29,10 +31,11 @@
 <button class="skip-to-main" id="skip-to-main" type="button">رفتن به محتوای اصلی</button>
 <header class="site-header" id="top">
 <div class="frame header-inner">
-<a aria-label="بازگشت به معرفی" class="mark" href="#/intro/fa" id="home-link"><span class="brand-emblem"><img alt="" decoding="async" height="56" src="assets/brand-header.webp" width="56"/></span>
+<a aria-label="بازگشت به صفحه نخست" class="mark" href="#/home/fa" id="home-link"><span class="brand-emblem"><img alt="" decoding="async" height="52" src="assets/ftis-dialogue-mark.svg" width="52"/></span>
 <span class="mark-words" id="brand-name">از اطلاعات تا جامعه</span>
 </a>
 <nav aria-label="پیمایش سایت" class="main-nav" id="navigation">
+<a data-route="home" href="#/home/fa" id="nav-home">خانه</a>
 <a data-route="intro" href="#/intro/fa" id="nav-intro">معرفی</a>
 <a data-route="library" href="#/library/fa" id="nav-library">فهرست نوشته‌ها</a>
 </nav>
@@ -43,6 +46,25 @@
 </div>
 </header>
 <main id="main-content" tabindex="-1">
+<section class="home-page" hidden id="home-page" aria-label="آغاز مسیر">
+ <div class="home-hero">
+  <div class="frame home-hero-grid">
+   <div class="home-hero-copy">
+    <p class="home-eyebrow" id="home-eyebrow">نقشه‌ای که با هم کاملش می‌کنیم</p>
+    <h1 id="home-title">از اطلاعات تا جامعه</h1>
+    <p class="home-deck" id="home-deck">از یک سؤال ساده شروع می‌کنیم؛ بعد با هم مسیر فکر و تصمیم را باز می‌کنیم.</p>
+    <div class="home-hero-actions"><a class="home-start" id="home-start" href="#/library/fa">دیدن نوشته‌ها <span aria-hidden="true">↓</span></a><a class="home-about" id="home-about" href="#/intro/fa">از کجا شروع کردیم؟</a></div>
+   </div>
+   <div class="home-art"><img src="assets/ftis-journey-scene.svg" width="740" height="510" decoding="async" alt="" id="home-artwork"><p class="home-art-label" id="home-art-label">یک سؤال، چند مسیر، گفت‌وگوی مشترک</p></div>
+  </div>
+ </div>
+ <div class="frame home-index" id="home-index">
+  <div class="home-index-heading"><div><p class="home-index-eyebrow" id="home-index-kicker">نوشته‌های منتشرشده</p><h2 id="home-index-title">از کجا شروع کنیم؟</h2><p id="home-index-subtitle">هر نوشته تاریخ خودش را دارد. هر کجا دوست داشتی وارد مسیر شو.</p></div><span class="home-index-total" id="home-index-total"></span></div>
+  <div class="home-search-box"><label for="home-search" id="home-search-label">جست‌وجو در نوشته‌ها</label><div class="home-search-field"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 5 5"/></svg><input type="search" autocomplete="off" id="home-search" placeholder="عنوان یا موضوع را جست‌وجو کن..." /></div><span class="home-search-status" id="home-search-status" role="status" aria-live="polite"></span></div>
+  <div class="home-cards" id="home-cards" aria-label="نوشته‌های منتشرشده"></div>
+  <div class="home-journey"><div class="home-journey-line" aria-hidden="true"><span></span><span></span><span></span></div><p id="home-journey-note">هر قسمت بخشی از نقشه را روشن‌تر می‌کند. ادامه این مسیر هم به‌مرور منتشر می‌شود.</p></div>
+ </div>
+</section>
 <section class="reader-page" hidden="" id="reader-page">
 <div class="hero-region">
 <div aria-hidden="true" class="hero-lines">

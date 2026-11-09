@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 510" fill="none" role="img" aria-labelledby="title desc"><title id="title">A shared journey from questions to people in dialogue</title><desc id="desc">An open book, an intersecting path with two people, and a small settlement in warm muted colors</desc>
+<defs><linearGradient id="sky" x1=".5" x2=".5" y1="0" y2="1"><stop stop-color="#F9F4E9"/><stop offset="1" stop-color="#F2E8D9"/></linearGradient><linearGradient id="ridge" x1="0" x2="1"><stop stop-color="#ABB4A0"/><stop offset="1" stop-color="#7A8772"/></linearGradient><pattern id="grain" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="3" cy="5" r=".7" fill="#806957" opacity=".14"/><circle cx="15" cy="14" r=".55" fill="#54716C" opacity=".13"/></pattern></defs>
+<rect width="740" height="510" rx="8" fill="url(#sky)"/>
+<circle cx="442" cy="156" r="78" fill="#DDBB99" opacity=".55"/><circle cx="442" cy="156" r="77" stroke="#C9926C" stroke-width=".7" opacity=".28"/>
+<!-- quiet landscapes and community -->
+<path d="M0 275 C132 225 226 242 332 255 C418 196 540 198 740 257 L740 510 L0 510Z" fill="#C1C9B5" opacity=".62"/>
+<path d="M0 309 C190 261 263 298 388 308 C524 264 616 250 740 305 L740 510 L0 510Z" fill="url(#ridge)" opacity=".65"/>
+<path d="M0 365 C133 318 223 340 330 377 C445 354 589 313 740 351 L740 510 L0 510Z" fill="#788671" opacity=".58"/>
+<path d="M0 420 C168 375 268 425 410 402 C553 380 650 406 740 393 L740 510 L0 510Z" fill="#697864" opacity=".58"/>
+<!-- settlement motif, three distinct little houses -->
+<g fill="#EBE0CD" stroke="#7C7969" stroke-width="2"><path d="M486 224 L486 190 L510 174 L535 191 L535 224Z"/><path d="M545 233 L545 203 L570 185 L595 202 L595 233Z"/><path d="M598 235 L598 213 L620 198 L643 214 L643 235Z"/></g>
+<g fill="#B77352"><path d="M481 192 L510 170 L541 193 L537 197 L510 178 L485 197Z"/><path d="M539 204 L570 181 L601 205 L598 210 L570 189 L542 210Z"/><path d="M591 214 L619 194 L649 215 L645 220 L619 202 L596 219Z"/></g>
+<path d="M516 222 V205 H525 V222 M566 233 V215 H578 V233" stroke="#6F7667" stroke-width="2"/>
+<!-- two companion silhouettes, subtle and symmetric -->
+<g fill="#313F3B" opacity=".9"><circle cx="401" cy="304" r="6"/><path d="M395 313 Q401 308 407 313 L410 349 L394 349Z"/><path d="M395 343 L391 365 M407 343 L411 365" stroke="#313F3B" stroke-width="4" stroke-linecap="round"/><circle cx="426" cy="310" r="6"/><path d="M420 319 Q426 314 432 319 L435 351 L417 351Z"/><path d="M420 346 L416 366 M432 346 L436 366" stroke="#313F3B" stroke-width="4" stroke-linecap="round"/></g>
+<!-- winding path as navigation, not mechanistic chain -->
+<path d="M276 510 C337 468 465 457 489 413 C511 376 428 379 436 339 C443 301 531 296 522 267 C516 248 489 244 499 232" stroke="#F7F0DF" stroke-width="43" stroke-linecap="round"/>
+<path d="M276 510 C337 468 465 457 489 413 C511 376 428 379 436 339 C443 301 531 296 522 267 C516 248 489 244 499 232" stroke="#DBBC95" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="2 13" opacity=".7"/>
+<!-- book in near field -->
+<g transform="translate(86 339)"><path d="M12 40 Q64 18 118 48 Q168 19 221 41 L221 121 Q176 102 118 125 Q62 101 12 122Z" fill="#EFE4D1" stroke="#35524E" stroke-width="3.4" stroke-linejoin="round"/><path d="M118 48 V125" stroke="#35524E" stroke-width="2.2"/><path d="M24 58 Q74 41 107 63 M25 72 Q77 56 107 77 M130 63 Q163 40 210 59 M130 77 Q162 58 209 73" stroke="#A59C87" stroke-width="1.6"/><path d="M-2 133 Q110 120 235 132" stroke="#A45D43" stroke-width="2.5" stroke-linecap="round"/></g>
+<!-- a few organic leaves, not decoration dominating the page -->
+<g stroke="#596A59" stroke-width="2" stroke-linecap="round" opacity=".84"><path d="M31 321 Q60 282 64 233"/><path d="M57 264 Q34 257 29 241 Q50 239 57 264Z" fill="#7F8C6F"/><path d="M62 246 Q80 230 88 219 Q65 218 62 246Z" fill="#A2AA83"/><path d="M58 285 Q40 278 32 268 Q52 266 58 285Z" fill="#B9B38D"/></g>
+<rect width="740" height="510" fill="url(#grain)" opacity=".46"/>
+</svg>
