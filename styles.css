@@ -592,3 +592,22 @@ body .site-footer #ftis-privacy{color:#224650!important}
 @media(max-width:360px){.header-tools{gap:5px}.header-follow-link{font-size:11px}}
 
 @media(max-width:420px){.article-meta{flex-wrap:wrap;column-gap:11px;row-gap:9px}.article-meta-rule{min-width:24px}.reader-feedback-link{margin-inline-start:0}}
+
+/* V11.2: precisely one home navigation item, centered on desktop, accessible on mobile. */
+.header-home-nav{display:flex;align-items:center;justify-content:center;margin-inline:auto;flex:0 0 auto}
+.header-home-nav a{display:inline-block;color:#285055;font-size:14px;font-weight:750;line-height:1.5;padding:9px 13px;border-bottom:2px solid transparent;text-decoration:none;white-space:nowrap}
+.header-home-nav a:hover,.header-home-nav a[aria-current="page"]{color:#A65A41;border-bottom-color:#A65A41}
+body[dir="ltr"] .header-home-nav a{font-family:var(--latin);font-size:15px;font-weight:600}
+/* The approved V10 two-profile identity replaces the altered V11 face. */
+.brand-emblem{padding:0!important;overflow:hidden!important;border:0!important;background:transparent!important;border-radius:50%!important;box-shadow:none!important}
+.brand-emblem img{width:100%!important;height:100%!important;object-fit:contain!important}
+@media(max-width:750px){
+ /* A deliberate two-row mobile masthead: no overlapping title or follow button. */
+ .header-inner{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"brand brand" "home tools"!important;min-height:0!important;height:auto!important;padding-block:9px 7px!important;column-gap:9px!important;row-gap:5px!important}
+ .mark{grid-area:brand;justify-self:start;min-width:0;max-width:100%}
+ .mark-words{white-space:normal!important;overflow-wrap:break-word;line-height:1.4}
+ .header-home-nav{grid-area:home;justify-self:start;align-self:center;order:0;flex:auto;width:auto;margin:0!important;border:0;justify-content:start}
+ .header-home-nav a{padding:5px 10px;font-size:13px}
+ body[dir="ltr"] .header-home-nav a{font-size:14px}
+ .header-tools{grid-area:tools;justify-self:end;align-self:center;min-width:0;max-width:100%;gap:6px}
+}

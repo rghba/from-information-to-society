@@ -6,7 +6,7 @@
   const $main = $('main-content');
   const ui = {
     fa: {
-      brand:'از اطلاعات تا جامعه',home:'اپیزودها',intro:'اپیزود اول', library:'اپیزودها', introduction:'اپیزود', episode:'اپیزود',
+      brand:'از اطلاعات تا جامعه',home:'خانه',intro:'اپیزود اول', library:'اپیزودها', introduction:'اپیزود', episode:'اپیزود',
       poster:'پوستر اصلی',posterCaption:'برای بزرگ‌نمایی تصویر، آن را انتخاب کنید',read:'خواندن متن',share:'کپی پیوند صفحه',
       article:'متن کامل',end:'پایان اپیزود اول',endEpisode:'پایان نوشته',readAll:'فهرست نوشته‌ها',overview:'نقشه مسیر',
       librarySubtitle:'معرفی در جای خود می‌ماند و هر نوشتهٔ تازه به این فهرست اضافه می‌شود.',
@@ -18,7 +18,7 @@
       tocTitle:'فهرست نوشته‌ها',tocIntro:'از اطلاعات تا جامعه',tocToggle:'نمایش فهرست',tocClose:'بستن فهرست',tocSkip:'رفتن به محتوای اصلی'
     },
     en: {
-      brand:'From Information to Society',home:'Episodes',intro:'Episode 1',library:'Episodes', introduction:'Episode', episode:'Episode',
+      brand:'From Information to Society',home:'Home',intro:'Episode 1',library:'Episodes', introduction:'Episode', episode:'Episode',
       poster:'Original poster',posterCaption:'Select the image to see the full-size artwork',read:'Read the essay',share:'Copy page link',
       article:'Complete text',end:'End of episode one',endEpisode:'End of essay',readAll:'Writing index',overview:'The map of the journey',
       librarySubtitle:'The introduction stays in place. Each new piece joins this index, at its own permanent address.',
@@ -31,8 +31,8 @@
     }
   };
   const homeStrings={
-    fa:{eyebrow:'نقشه‌ای که قدم‌به‌قدم کامل می‌شه',title:'از اطلاعات تا جامعه',deck:'از اطلاعات تا گفت‌وگو و اکوسیستم',indexTitle:'اپیزودها',searchLabel:'جست‌وجو در اپیزودها',searchPlaceholder:'عنوان یا موضوع اپیزود را جست‌وجو کن...',noResults:'اپیزودی با این عبارت پیدا نشد.',new:'تازه‌ترین',read:'خواندن اپیزود',published:'انتشار',results:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود`,total:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود منتشرشده`,journey:'این مسیر ادامه داره؛ اپیزودهای بعدی به‌مرور منتشر می‌شن.'},
-    en:{eyebrow:'A map taking shape, one episode at a time',title:'From Information to Society',deck:'From Information to Dialogue and an Ecosystem of Minds',indexTitle:'Episodes',searchLabel:'Search episodes',searchPlaceholder:'Search by episode title or topic...',noResults:'No episodes match that search.',new:'Latest',read:'Read episode',published:'Published',results:(n)=>`${n} ${n===1?'episode':'episodes'}`,total:(n)=>`${n} published ${n===1?'episode':'episodes'}`,journey:'The journey continues. New episodes will appear here as they are published.'}
+    fa:{eyebrow:'نقشه‌ای که قدم‌به‌قدم کامل می‌شه',title:'از اطلاعات تا جامعه',deck:'از یک سؤال ساده شروع می\u200cکنیم: چرا اطلاعات یکسان می\u200cتونه به برداشت\u200cها و تصمیم\u200cهای متفاوت برسه؟ از اینجا قدم\u200cبه\u200cقدم به تعامل انسان\u200cها و هوش مصنوعی و امکان شکل\u200cگیری یک اکوسیستم مشترک می\u200cرسیم.',indexTitle:'اپیزودها',searchLabel:'جست‌وجو در اپیزودها',searchPlaceholder:'عنوان یا موضوع اپیزود را جست‌وجو کن...',noResults:'اپیزودی با این عبارت پیدا نشد.',new:'تازه‌ترین',read:'خواندن اپیزود',published:'انتشار',results:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود`,total:(n)=>`${new Intl.NumberFormat('fa-IR').format(n)} اپیزود منتشرشده`,journey:'این مسیر ادامه داره؛ اپیزودهای بعدی به‌مرور منتشر می‌شن.'},
+    en:{eyebrow:'A map taking shape, one episode at a time',title:'From Information to Society',deck:'We start with a simple question: why can the same information lead to different interpretations and decisions? From there, we explore how people and AI systems might interact within a shared ecosystem.',indexTitle:'Episodes',searchLabel:'Search episodes',searchPlaceholder:'Search by episode title or topic...',noResults:'No episodes match that search.',new:'Latest',read:'Read episode',published:'Published',results:(n)=>`${n} ${n===1?'episode':'episodes'}`,total:(n)=>`${n} published ${n===1?'episode':'episodes'}`,journey:'The journey continues. New episodes will appear here as they are published.'}
   };
   const els = {home:$('home-page'),reader:$('reader-page'),library:$('library-page'),missing:$('missing-page')};
   const routeLink=(type,id,lang)=>type==='episode'?`#/episode/${encodeURIComponent(id)}/${lang}`:`#/${type}/${lang}`;
@@ -57,6 +57,10 @@
     document.body.dir=isFa?'rtl':'ltr';
     $('brand-name').textContent=strings.brand;
     $('home-link').href=routeLink('home',null,lang);
+    $('nav-home').href=routeLink('home',null,lang);
+    $('nav-home').textContent=strings.home;
+    $('nav-home').setAttribute('aria-label',isFa?'رفتن به خانه':'Go to home');
+    $('nav-home').parentElement.setAttribute('aria-label',isFa?'ناوبری اصلی':'Main navigation');
     $('home-link').setAttribute('aria-label',isFa?'صفحه نخست':'Home page');
     $('missing-link').textContent=strings.missingBack;
     $('missing-link').href=routeLink('library',null,lang);

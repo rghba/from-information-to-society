@@ -1,10 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
-<title id="title">Two minds in dialogue</title>
-<circle cx="48" cy="48" r="45" fill="#F7EFE3" stroke="#B7A48C" stroke-width="1.35"/>
-<path d="M40.7 18.7 C28 17.8 19.2 26.6 19.6 39.3 C20 46.4 23.5 49.5 28.5 53.4 C30.7 55.1 31.4 58.4 30.3 61.4 L27.7 69.4" fill="none" stroke="#17434A" stroke-width="4.35" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M55.3 18.7 C68 17.8 76.8 26.6 76.4 39.3 C76 46.4 72.5 49.5 67.5 53.4 C65.3 55.1 64.6 58.4 65.7 61.4 L68.3 69.4" fill="none" stroke="#B15F3D" stroke-width="4.35" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M30 37.4 Q35 34.3 40.6 37.4 M66 37.4 Q61 34.3 55.4 37.4" fill="none" stroke="#61746D" stroke-width="2" stroke-linecap="round"/>
-<path d="M38 48.5 Q48 42.5 58 48.5" fill="none" stroke="#9C916F" stroke-width="2" stroke-linecap="round"/>
-<circle cx="48" cy="49" r="3.2" fill="#B15F3D"/>
-<path d="M37 71.5 C43 67.6 53 67.6 59 71.5" fill="none" stroke="#17434A" stroke-width="2.6" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-labelledby="title desc"><title id="title">From Information to Society — dialogue mark</title><desc id="desc">Two distinct open profiles facing one another around a shared point</desc>
+<circle cx="60" cy="60" r="58.5" fill="#FBF6ED" stroke="#D1BCA7" stroke-width="2"/>
+<path d="M 59 10 C 33 8 18 27 21 48 C 23 59 29 61 37 68 C 34 76 35 86 44 92" stroke="#67705B" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 55 26 C 43 28 40 39 43 47 L 53 55 L 46 62 C 49 65 51 67 54 68" stroke="#67705B" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 63 10 C 88 9 103 27 100 48 C 98 59 92 62 84 69 C 87 77 84 87 76 92" stroke="#A55B43" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 66 26 C 78 28 81 39 78 47 L 68 55 L 75 62 C 72 65 70 67 67 68" stroke="#A55B43" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 28 102 Q 60 114 92 102" stroke="#233C3E" stroke-width="2.8" stroke-linecap="round" opacity=".8"/>
+<circle cx="60" cy="81" r="3.9" fill="#A55B43"/><path d="M 60 84 L 60 98" stroke="#C3AD8B" stroke-width="2.1" stroke-linecap="round"/>
 </svg>
