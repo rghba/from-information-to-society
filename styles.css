@@ -341,3 +341,14 @@ body[data-page="episode"] .atlas-figure figcaption{color:#4b6064}
   html{scroll-behavior:auto}
   .poster-button,.library-card,.primary-link,.reader-next a{transition:none}
 }
+
+/* V9.3: Preserve English reading direction even across Word-style runs;
+   let terms retain their intended emphasis while keeping joiners visually light. */
+body[dir="rtl"] .article-paragraphs bdi.inline-latin{
+  direction:ltr;unicode-bidi:isolate;white-space:normal;
+  font-family:var(--latin)!important;font-size:.88em;font-weight:inherit;
+}
+body[dir="rtl"] .article-paragraphs .inline-punctuation{
+  font-family:var(--latin)!important;font-size:.88em;font-weight:400;
+  letter-spacing:normal;color:var(--ink2);vertical-align:baseline;
+}

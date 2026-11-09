@@ -1,4 +1,4 @@
-/* Episode 02. Extracted verbatim from the approved R10 Word documents. */
+/* Episode 02. Approved R10 basis; V9.3 removes obsolete diagram references and updates the two following sentences. */
 window.SERIES_CONTENT = window.SERIES_CONTENT || {};
 window.SERIES_CONTENT["02"] = {
   "id": "02",
@@ -654,14 +654,14 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "لایه سوم: پردازش و کنترل شناختی. (L3 — Cognitive Processing & Control)",
+          "text": "لایه سوم: پردازش و کنترل شناختی (L3 — Cognitive Processing & Control)",
           "runs": [
             {
               "text": "لایه سوم: پردازش و کنترل شناختی",
               "bold": true
             },
             {
-              "text": ". ("
+              "text": " ("
             },
             {
               "text": "L3 — Cognitive Processing & Control)",
@@ -899,11 +899,7 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "قسمت پایین شکل، خلاصه‌ای از ارتباط سیستم با محیطه؛ یک لایه چهارم نیست."
-        },
-        {
-          "type": "paragraph",
-          "text": "و این تصویر هم قرار نیست بگه تمام پردازش‌های ذهن حتماً به‌شکل یک زنجیره خطی انجام می‌شن."
+          "text": "این تصویر قرار نیست بگه تمام پردازش‌های ذهن حتماً به‌شکل یک زنجیره خطی انجام می‌شن."
         },
         {
           "type": "paragraph",
@@ -1897,11 +1893,7 @@ window.SERIES_CONTENT["02"] = {
         },
         {
           "type": "paragraph",
-          "text": "The lower part of the figure sums up the connection between the system and its environment. It isn't a fourth layer."
-        },
-        {
-          "type": "paragraph",
-          "text": "And this map isn't saying that every mental process necessarily follows one neat, linear chain."
+          "text": "This map doesn't mean that every mental process follows one neat, linear chain."
         },
         {
           "type": "paragraph",

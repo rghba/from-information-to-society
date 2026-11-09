@@ -96,26 +96,55 @@
     updateTocToggleLabel(lang);
   }
   function showPage(which){Object.entries(els).forEach(([k,v])=>{v.hidden=k!==which;});}
-  // W3C bidi isolation: isolate entire L1 / I12 codes AND full English phrases,
-  // including parentheses. Isolating only Latin letters split off the digits,
-  // reversing identifiers and parenthetical English terms in Persian paragraphs.
-  const embeddedLtr = /\([^()]*[A-Za-z][^()]*\)|[A-Za-z][A-Za-z0-9]*(?:[’'./&+-][A-Za-z0-9]+)*/g;
-  function populateSegment(node,text,lang){
-    if(lang!=='fa'){node.appendChild(document.createTextNode(text));return;}
-    let from=0;
-    embeddedLtr.lastIndex=0;
-    for(const match of text.matchAll(embeddedLtr)){
-      const i=match.index;
-      if(i>from)node.appendChild(document.createTextNode(text.slice(from,i)));
-      const isolated=document.createElement('bdi');
-      isolated.className='inline-latin';
-      isolated.dir='ltr';isolated.lang='en';isolated.textContent=match[0];
-      node.appendChild(isolated);
-      from=i+match[0].length;
+  // V9.3: Build a single left-to-right island for each embedded English term.
+  // Match before styling runs: a single term may straddle bold/regular Word runs.
+  // This keeps brackets, L1/L2/I12 codes and the full phrase in their natural order.
+  const embeddedLtr = /(?:\b(?:L[123]|I(?:12|23))\s+)?\([^()]*[A-Za-z][^()]*\)|\b(?:L[123]|I(?:12|23))\b|[A-Za-z][A-Za-z0-9]*(?:[’'./&+-][A-Za-z0-9]+)*/g;
+  const joinerChars = /[&—–]/g;
+  function appendStyledRange(parent,text,runs,start,end,isFa){
+    let cursor=0;
+    for(const run of runs){
+      const runStart=cursor,runEnd=runStart+run.text.length;
+      cursor=runEnd;
+      const begin=Math.max(runStart,start),finish=Math.min(runEnd,end);
+      if(finish<=begin)continue;
+      let target=parent;
+      if(run.bold){const strong=document.createElement('strong');target.appendChild(strong);target=strong;}
+      if(run.italic){const em=document.createElement('em');target.appendChild(em);target=em;}
+      const fragment=text.slice(begin,finish);
+      if(!isFa){target.appendChild(document.createTextNode(fragment));continue;}
+      let previous=0;
+      joinerChars.lastIndex=0;
+      for(const token of fragment.matchAll(joinerChars)){
+        if(token.index>previous)target.appendChild(document.createTextNode(fragment.slice(previous,token.index)));
+        const symbol=document.createElement('span');symbol.className='inline-punctuation';
+        symbol.textContent=token[0];target.appendChild(symbol);
+        previous=token.index+token[0].length;
+      }
+      if(previous<fragment.length)target.appendChild(document.createTextNode(fragment.slice(previous)));
     }
-    if(from<text.length)node.appendChild(document.createTextNode(text.slice(from)));
   }
-  function populateParagraph(node,text,lang){node.replaceChildren();populateSegment(node,text,lang);}
+  function populateBlock(node,block,lang){
+    const text=typeof block==='string'?block:(block.text||'');
+    const supplied=typeof block==='string'?null:block.runs;
+    const runs=Array.isArray(supplied)&&supplied.length&&supplied.every(r=>typeof r.text==='string')
+      &&supplied.map(r=>r.text).join('')===text?supplied:[{text}];
+    node.replaceChildren();
+    if(lang!=='fa'){appendStyledRange(node,text,runs,0,text.length,false);return;}
+    embeddedLtr.lastIndex=0;
+    let previous=0;
+    for(const match of text.matchAll(embeddedLtr)){
+      const start=match.index,end=start+match[0].length;
+      if(start>previous)appendStyledRange(node,text,runs,previous,start,true);
+      const island=document.createElement('bdi');island.className='inline-latin';
+      island.dir='ltr';island.lang='en';
+      appendStyledRange(island,text,runs,start,end,true);
+      node.appendChild(island);previous=end;
+    }
+    if(previous<text.length)appendStyledRange(node,text,runs,previous,text.length,true);
+  }
+  function populateSegment(node,text,lang){populateBlock(node,text,lang);}
+  function populateParagraph(node,text,lang){populateBlock(node,text,lang);}
   function isPull(s){return ['«چقدر می‌دونیم؟»','«با چیزهایی که می‌دونیم، چطوری می‌تونیم فکر ‌کنیم؟»','"How much do we know?"','"How can we think with what we know?"'].includes(s.trim());}
   function updateTocToggleLabel(lang){
     const button=$('toc-toggle');
@@ -191,14 +220,7 @@
         }else{
           const p=document.createElement('p');p.lang=lang;p.dir=lang==='fa'?'rtl':'ltr';
           p.dataset.pull=String(Boolean(block.emphasis));
-          if(Array.isArray(block.runs)&&block.runs.length){
-            for(const seg of block.runs){
-              let target=p;
-              if(seg.bold){target=document.createElement('strong');p.appendChild(target);}
-              if(seg.italic){const em=document.createElement('em');target.appendChild(em);target=em;}
-              populateSegment(target,seg.text,lang);
-            }
-          }else populateParagraph(p,block.text,lang);
+          populateBlock(p,block,lang);
           area.appendChild(p);
         }
       }
