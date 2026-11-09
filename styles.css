@@ -482,3 +482,96 @@ body[dir=ltr] .home-start{font-family:var(--latin);font-size:16px}
  .home-index-heading{padding-bottom:16px}
  .home-search-box{margin:16px 0 20px}
 }
+
+/* FTIS V11 — Episode-first editorial landing; shared publication identity. */
+:root{--ink:#15353D;--ink2:#21444A;--paper:#F7F0E6;--paper2:#F0E5D7;--white:#FEFAF3;--copper:#A96145;--copperLight:#D19A75;--gray:#596B69;--rule:#D8C5AF}
+body{background:var(--paper)}
+.site-header{background:#FBF6ED!important;border-bottom:1px solid #D9C6B1!important;box-shadow:none!important}
+.header-inner{height:76px!important;color:var(--ink)!important}
+.mark-words{color:var(--ink)!important;font-size:clamp(14px,1.25vw,18px)!important}
+.brand-emblem{width:48px;height:48px;flex-basis:48px;border-color:#D5BAA0;background:#FDF8EF;box-shadow:none}
+.brand-emblem img{width:46px;height:46px}
+.main-nav{margin-inline:auto}
+.main-nav a{font-weight:700!important;font-size:15px!important;color:#245059!important}
+.main-nav a.is-current{color:var(--copper)!important}
+.language-switch{border:1px solid #C4B19D;background:#F2E8DB}
+.language-switch button{color:#325258}
+.language-switch button[aria-pressed=true]{background:#17434A;color:white}
+.home-page{background:#F8F1E7!important;color:var(--ink);min-height:calc(100vh - 76px);overflow-x:clip}
+.home-page::before{content:'';position:absolute;pointer-events:none;inset:100px 0 auto;height:410px;opacity:.45;background:radial-gradient(ellipse at 20% 5%,#E7D2BB85,transparent 55%),radial-gradient(ellipse at 80% 5%,#EACBAA8C,transparent 55%)}
+.episode-landing{position:relative;padding-block:42px 54px}
+.episode-landing-intro{max-width:950px;margin:0 auto 25px;text-align:center}
+.episode-landing-kicker{font-size:14px;font-weight:700;letter-spacing:.025em;color:#A05E44;margin:0 0 8px}
+.episode-landing-intro h1{font-size:clamp(39px,4.6vw,67px);font-weight:800;line-height:1.25;margin:0;color:#153941;letter-spacing:0}
+.episode-landing-deck{font-size:clamp(17px,1.45vw,21px);line-height:1.8;max-width:830px;margin:12px auto 0;color:#40565A;text-wrap:pretty}
+.home-index{padding:0 0 55px!important;scroll-margin-top:15px}
+.home-index-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:7px 0 11px!important;border-bottom:1px solid #D5C1AC}
+.home-index-heading h2{font-size:clamp(24px,2.3vw,32px);line-height:1.4;margin:0!important;font-weight:700;color:#1B4148}
+.home-index-total{font-size:13px;font-weight:600;white-space:nowrap;border:0;color:#60716D;background:none;padding:4px}
+.home-search-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 18px;align-items:center;margin:17px 0 19px!important}
+.home-search-box>label{font-size:13px;color:#5A6B66;font-weight:700;grid-column:1 / -1}
+.home-search-field{min-height:50px;border:1px solid #BEA991;border-radius:10px;background:#FFFCF7;padding:0 16px;box-shadow:none}
+.home-search-field svg{color:#44666A}
+#home-search{font-size:16px;min-width:0;line-height:1.5;color:#183E45}
+.home-search-status{font-size:13px;color:#61716A}
+.home-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.home-entry{direction:inherit;display:grid;grid-template-columns:43% minmax(0,1fr);min-height:345px;background:#FFFCF6;border:1px solid #D5BCA2;border-radius:16px;box-shadow:0 4px 18px #463D3110;overflow:hidden;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.home-entry:hover{transform:translateY(-3px);border-color:#A96347;box-shadow:0 12px 26px #3D44381C}
+.home-entry:focus-visible{outline:3px solid var(--copper);outline-offset:4px}
+.home-entry-new{border-color:#B97956}
+.home-entry-art{padding:14px;background:linear-gradient(160deg,#F7EADD,#FCF7F0);border-inline-end:1px solid #E2D1C0;overflow:hidden;display:grid;place-items:center}
+.home-entry-art img{display:block;width:100%;height:310px;max-height:none;object-fit:contain;object-position:center;filter:drop-shadow(0 4px 10px #2B403116)}
+.home-entry-body{padding:25px 24px 21px;display:flex;flex-direction:column;min-width:0}
+.home-entry-overline{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.home-entry-index{font-size:15px;color:#A25C40;font-weight:700}
+.home-new-tag{font-size:12px;font-weight:700;color:#FCF7ED;background:#AB5D3C;border-radius:5px;padding:4px 10px}
+.home-entry-title{font-size:clamp(25px,2.2vw,34px);line-height:1.3;color:#123A42;font-weight:800;margin:13px 0 11px;overflow-wrap:anywhere}
+.home-entry-description{font-size:clamp(15px,1.15vw,17px);line-height:1.7;color:#52635F;flex:1}
+.home-entry-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:19px;padding-top:15px;border-top:1px solid #E1D1C1}
+.home-entry-bottom time{color:#415A5B;font-size:13px;font-weight:600}
+.home-entry-read{background:#1E4B52;color:#FFFAF1;font-size:13px;font-weight:700;padding:7px 12px;border-radius:6px;margin-inline-start:auto}
+.episode-future-note{margin:21px 0 0;color:#66766D;font-size:14px;text-align:center}
+.home-empty{grid-column:1/-1;background:#FFFBF5;color:#3E595A;padding:30px;border:1px dashed #C9B59E}
+body[dir=ltr] .episode-landing-intro h1{font-family:var(--latinDisplay);font-size:clamp(43px,4.6vw,67px);font-weight:400;line-height:1.15}
+body[dir=ltr] .episode-landing-deck,body[dir=ltr] .home-index,body[dir=ltr] .episode-future-note{font-family:var(--latin)}
+body[dir=ltr] .home-entry-title,body[dir=ltr] .home-index-heading h2{font-family:var(--latinDisplay);font-weight:400}
+body[dir=ltr] .episode-landing-deck{line-height:1.55}
+body[dir=ltr] .home-entry-description{line-height:1.55}
+body[dir=ltr] .home-entry-bottom time{font-style:normal}
+/* The reader uses the same ink, paper, copper and typography—not a separate brand. */
+.hero-region{background:linear-gradient(112deg,#17363E 0%,#214650 65%,#17363E 100%)}
+.site-footer{background:#F7F0E6!important;border-top:1px solid #D9C6B1;color:#1D4147!important}
+.site-footer a,.site-footer span{color:#224650!important}
+@media(min-width:1200px){.episode-landing{padding-top:30px}.episode-landing-intro{margin-bottom:14px}.home-entry{min-height:330px}.home-entry-art img{height:290px}}
+@media(max-width:990px){.home-cards{grid-template-columns:1fr}.home-entry{min-height:300px}.home-entry-art img{height:285px}}
+@media(max-width:750px){
+ .header-inner{height:auto!important;min-height:70px}.main-nav{order:0;width:auto;margin:0}.main-nav a{padding:9px 0}
+ .episode-landing{padding-block:28px 44px}.episode-landing-intro{margin-bottom:23px}
+ .episode-landing-intro h1{font-size:clamp(34px,8vw,48px)}
+ .episode-landing-deck{font-size:16px;line-height:1.7}
+ .home-entry{grid-template-columns:34% minmax(0,1fr);min-height:228px}
+ .home-entry-art{padding:9px}.home-entry-art img{height:225px}
+ .home-entry-body{padding:17px}.home-entry-title{font-size:clamp(22px,4.5vw,27px);margin-block:9px}
+}
+@media(max-width:580px){
+ .brand-emblem{width:36px;height:36px;flex-basis:36px;padding:1px}.brand-emblem img{width:34px;height:34px}
+ .header-inner{gap:8px;flex-wrap:nowrap}.mark-words{font-size:12px!important}.main-nav{margin-inline-start:auto}
+ .main-nav a{font-size:13px!important}.language-switch{padding:2px}.language-switch button{padding:5px 9px;font-size:12px}
+ .episode-landing{padding:23px 0 38px}.episode-landing-kicker{font-size:12px}.episode-landing-intro h1{font-size:clamp(31px,8vw,42px)}
+ body[dir=ltr] .episode-landing-intro h1{font-size:clamp(35px,8vw,44px)}
+ .episode-landing-deck{font-size:15px;line-height:1.65}
+ .home-index-heading h2{font-size:25px}.home-index-total{font-size:12px}
+ .home-search-box{grid-template-columns:1fr}.home-search-status{text-align:start}
+ .home-entry{grid-template-columns:33% minmax(0,1fr);min-height:224px;border-radius:12px}
+ .home-entry-art img{height:210px}.home-entry-body{padding:12px 11px 13px}
+ .home-entry-overline{gap:4px}.home-entry-index{font-size:12px}.home-new-tag{font-size:10px;padding:3px 6px}
+ .home-entry-title{font-size:21px;line-height:1.3;margin:7px 0}
+ .home-entry-description{font-size:13px;line-height:1.45}
+ .home-entry-bottom{margin-top:10px;gap:6px;padding-top:8px}.home-entry-bottom time{font-size:11px}
+ .home-entry-read{font-size:11px;padding:5px 7px}
+ body[dir=ltr] .home-entry-title{font-size:19px}
+}
+@media(max-width:359px){.mark-words{font-size:11px!important}.home-entry-title{font-size:18px}body[dir=ltr] .home-entry-title{font-size:18px}.home-entry-bottom time{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.home-entry{transition:none}}
+/* Keep privacy controls readable against the new light footer. */
+body .site-footer #ftis-privacy{color:#224650!important}

@@ -18,7 +18,7 @@
   function route(){
     const m=(location.hash||'').match(/^#\/(home|intro|episode|library)(?:\/([A-Za-z0-9-]+))?(?:\/(fa|en))?/);
     if(!m)return {kind:'home',id:'',language:lang()};
-    return {kind:m[1],id:m[1]==='episode'?m[2]||'':m[1]==='intro'?'intro':'',language:m[3]||lang()};
+    return {kind:m[1]==='episode'&&m[2]==='01'?'intro':m[1],id:m[1]==='episode'?(m[2]==='01'?'intro':m[2]||''):m[1]==='intro'?'intro':'',language:m[3]||lang()};
   }
   function safeCampaign(){
     // Strictly allow these four public labels; NEVER transmit arbitrary URL query or personal data.
